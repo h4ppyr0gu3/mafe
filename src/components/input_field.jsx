@@ -30,19 +30,6 @@ export function InputButton(props) {
 }
 
 export function YTSearchBar(props) {
-
-  // = form_with(url: search_path) do |f| 
-  //   .field.is-grouped
-  //   .control.is-expanded
-  //     = f.text_field :query, class: "input", placeholder: "enter phrase or url"
-  //   .control
-  //   = f.submit "Search", class: "button"
-  //   .field.is-flex.is-justify-content-center
-  //     .control
-  //     .select
-  //     = select_tag(:date, options_for_select([['date', nil], ["hour"], ["today"], ["week"], ["month"], ["year"]], selected: :option ))
-  //       .select
-  //       = select_tag(:sort_by, options_for_select([["relevance"], ["rating"], ["date"], ["views"]], selected: :option ))
   return (
     <>
       <div class="field is-grouped is-grouped-multiline">
