@@ -1,6 +1,6 @@
-import { userService } from './user_service';
-import { useAppState, setAuth } from './app_state_service';
-import axios from 'axios';
+import { userService } from "./user_service";
+import { useAppState, setAuth } from "./app_state_service";
+import axios from "axios";
 
 // always return {
 //   success:
@@ -9,14 +9,14 @@ import axios from 'axios';
 // }
 
 export async function userLogin(email, password) {
-  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_in"
+  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_in";
   const [appState, setAppState] = useAppState();
   let headers, body, response;
   response = {
     errors: null,
     success: null,
     data: null,
-  }
+  };
   const data = {
     email: email,
     password: password,
@@ -27,11 +27,12 @@ export async function userLogin(email, password) {
       headers = res.headers;
       body = res.data;
       setAuth(headers.authorization);
-      setAppState('user', body);
+      setAppState("user", body);
       response.success = true;
       response.data = body;
       return response;
-    }).catch(res => {
+    })
+    .catch((res) => {
       response.success = false;
       response.errors = res.response.data.errors;
       return response;
@@ -39,13 +40,13 @@ export async function userLogin(email, password) {
 }
 
 export async function userLogOut() {
-  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out"
+  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out";
   const [appState, setAppState] = useAppState();
   var response = {
     success: null,
     errors: null,
     data: null,
-  }
+  };
   return axios
     .delete(url, {
       headers: {
@@ -55,29 +56,28 @@ export async function userLogOut() {
       },
     })
     .then((res) => {
-      setAuth('');
+      setAuth("");
       response.success = true;
       response.data = res.data;
       return response;
-    }).catch(res => {
+    })
+    .catch((res) => {
       response.success = false;
-      response.errors = res.response.data.errors
+      response.errors = res.response.data.errors;
       return response;
     });
 }
 
 export async function userSignUp(email, password) {
-  const redirect_url = import.meta.env.VITE_BASE_URL +
-    "/search"
-  const url = import.meta.env.VITE_API_URL +
-    "/api/auth"
+  const redirect_url = import.meta.env.VITE_BASE_URL + "/search";
+  const url = import.meta.env.VITE_API_URL + "/api/auth";
   const [appState, setAppState] = useAppState();
   let headers, body, response;
   response = {
     success: null,
     errors: null,
     data: null,
-  }
+  };
   const data = {
     email: email,
     password: password,
@@ -89,13 +89,14 @@ export async function userSignUp(email, password) {
       headers = res.headers;
       body = res.data;
       setAuth(headers.authorization);
-      setAppState('user', body);
+      setAppState("user", body);
       response.success = true;
-      response.data = res.data; 
+      response.data = res.data;
       return response;
-    }).catch(res => {
+    })
+    .catch((res) => {
       response.success = false;
-      response.errors = res.response.data.errors
+      response.errors = res.response.data.errors;
       return response;
     });
 }

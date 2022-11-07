@@ -1,9 +1,12 @@
 import { InputField, YTSearchBar } from "../components/input_field";
+import { createSignal } from "solidjs";
 
 export default function YTSearch() {
+  const [signal, setSignal] = createSignal();
   return (
     <>
-      <YTSearchBar label="search"/>
-      </>
-  )
+      <YTSearchBar onChange={setSignal()} />
+      <MBResults results={signal()} />
+    </>
+  );
 }

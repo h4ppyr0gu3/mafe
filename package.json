@@ -5,6 +5,9 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
+    "format": "npx prettier -w src/**/*.jsx",
+    "lint": "npx eslint src/**/*.jsx --fix",
+    "linter": "npm run format && npm run lint",
     "build": "vite build",
     "serve": "vite preview"
   },
@@ -14,6 +17,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-solid": "^0.8.0",
+    "prettier": "2.7.1",
     "vite": "^3.0.9",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-solid": "^2.3.0"

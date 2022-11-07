@@ -1,32 +1,36 @@
-import { createSignal, Show, Switch, Match } from "solid-js";
-
 export function InputField(props) {
   return (
     <>
       <div class="field">
-        <div class="label">
-          {props.label}
-        </div>
+        <div class="label">{props.label}</div>
         <div class="control">
-          <input class="input" ref={props.ref} 
-            placeholder={props.placeholder} 
-            type={props.type} value={props.value}/>
+          <input
+            class="input"
+            ref={props.ref}
+            placeholder={props.placeholder}
+            type={props.type}
+            value={props.value}
+          />
         </div>
       </div>
-      </>
-  )
+    </>
+  );
 }
 
 export function InputButton(props) {
   return (
     <div class="field">
       <div class="control">
-        <input class="button" ref={props.ref} 
-          placeholder={props.placeholder} 
-          type={props.type} value={props.value}/>
+        <input
+          class="button"
+          ref={props.ref}
+          placeholder={props.placeholder}
+          type={props.type}
+          value={props.value}
+        />
       </div>
     </div>
-  )
+  );
 }
 
 export function YTSearchBar(props) {
@@ -34,10 +38,10 @@ export function YTSearchBar(props) {
     <>
       <div class="field is-grouped is-grouped-multiline">
         <div class="control is-expanded">
-          <input class="input" type="text" placeholder="Enter Phrase or URL"/>
+          <input class="input" type="text" placeholder="Enter Phrase or URL" />
         </div>
         <div class="control">
-          <input class="button" type="submit" value="Search"/>
+          <input class="button" type="submit" value="Search" />
         </div>
       </div>
       <div class="field is-flex is-justify-content-center">
@@ -50,7 +54,7 @@ export function YTSearchBar(props) {
               <option>week</option>
               <option>month</option>
               <option>year</option>
-            </select> 
+            </select>
           </div>
         </div>
         <div class="control">
@@ -60,11 +64,10 @@ export function YTSearchBar(props) {
               <option>date</option>
               <option>rating</option>
               <option>reviews</option>
-            </select> 
+            </select>
           </div>
         </div>
       </div>
-      </>
+    </>
   );
-
 }
