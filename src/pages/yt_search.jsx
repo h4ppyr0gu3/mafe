@@ -1,5 +1,6 @@
-import { InputField, YTSearchBar } from "../components/input_field";
-import { createSignal } from "solidjs";
+import { YTSearchBar } from "../components/yt_search";
+import { MBResults } from "../components/music_brainz_results";
+import { createSignal } from "solid-js";
 
 export default function YTSearch() {
   const [signal, setSignal] = createSignal();

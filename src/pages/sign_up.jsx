@@ -1,24 +1,22 @@
 import { InputField, InputButton } from "../components/input_field";
 import {
-  setAuth,
   useAppState,
   loggedInStatus,
 } from "../utils/app_state_service";
 import { userSignUp } from "../utils/user_requests";
-import { Router, useRoutes, A, useNavigate } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 import { onMount } from "solid-js";
 
 export default function SignUp() {
   let email, password, passwordConfirmation, submit;
 
   const navigate = useNavigate();
-  const [appState, setAppState] = useAppState();
   const [loggedIn, setLoggedIn] = loggedInStatus();
 
   async function handleSubmit(e) {
     e.preventDefault();
     disableButton();
-    await userSignUp(email.value, password.value).then((res) => {
+    await userSignUp(email.value, password.value).then(() => {
       if (loggedIn()) {
         navigate("/", {});
       }

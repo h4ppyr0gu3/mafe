@@ -4,7 +4,7 @@ import {
 } from "../utils/app_state_service";
 import { userLogOut } from "../utils/user_requests";
 import { createSignal, Show } from "solid-js";
-import { A } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import { Errors, Success } from "./errors";
 
 export default function Header() {
@@ -30,13 +30,19 @@ export default function Header() {
     dropdownToggle.classList.toggle("is-active");
   }
 
+  const navigate = useNavigate();
+
+  function handleMapp() {
+    navigate("/search", {});
+  }
+
   return (
     <>
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <A class="navbar-item" href="/search">
+          <a class="navbar-item" onClick={handleMapp}>
             Mapp
-          </A>
+          </a>
 
           <a
             role="button"
