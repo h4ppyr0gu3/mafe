@@ -1,5 +1,4 @@
 import {
-  useAppState,
   loggedInStatus,
 } from "../utils/app_state_service";
 import { userLogOut } from "../utils/user_requests";
@@ -8,7 +7,7 @@ import { A, useNavigate } from "@solidjs/router";
 import { Errors, Success } from "./errors";
 
 export default function Header() {
-  const [loggedIn, setLoggedIn] = loggedInStatus();
+  const [loggedIn,] = loggedInStatus();
   const [errors, setErrors] = createSignal([]);
   const [messages, setMessages] = createSignal([]);
 

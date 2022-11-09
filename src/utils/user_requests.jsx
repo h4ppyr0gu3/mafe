@@ -1,4 +1,3 @@
-import { userService } from "./user_service";
 import { useAppState, setAuth } from "./app_state_service";
 import axios from "axios";
 
@@ -10,7 +9,7 @@ import axios from "axios";
 
 export async function userLogin(email, password) {
   const url = import.meta.env.VITE_API_URL + "/api/auth/sign_in";
-  const [appState, setAppState] = useAppState();
+  const [, setAppState] = useAppState();
 
   let headers, body, response;
   response = {
@@ -42,7 +41,7 @@ export async function userLogin(email, password) {
 
 export async function userLogOut() {
   const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out";
-  const [appState, setAppState] = useAppState();
+  const [appState,] = useAppState();
   var response = {
     success: null,
     errors: null,
@@ -72,7 +71,7 @@ export async function userLogOut() {
 export async function userSignUp(email, password) {
   const redirect_url = import.meta.env.VITE_BASE_URL + "/search";
   const url = import.meta.env.VITE_API_URL + "/api/auth";
-  const [appState, setAppState] = useAppState();
+  const [, setAppState] = useAppState();
   let headers, body, response;
   response = {
     success: null,

@@ -3,7 +3,7 @@ import { useResultState } from "../utils/search_service.jsx";
 
 export async function getMusicBrainz(path, params) {
   const url = import.meta.env.VITE_MB_API_URL + path
-  const [resultState, setResultState] = useResultState();
+  const [, setResultState] = useResultState();
 
   return axios
     .get(url, {

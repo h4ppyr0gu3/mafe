@@ -1,6 +1,5 @@
 import { InputField, InputButton } from "../components/input_field";
 import {
-  useAppState,
   loggedInStatus,
 } from "../utils/app_state_service";
 import { userSignUp } from "../utils/user_requests";
@@ -11,7 +10,7 @@ export default function SignUp() {
   let email, password, passwordConfirmation, submit;
 
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = loggedInStatus();
+  const [loggedIn,] = loggedInStatus();
 
   async function handleSubmit(e) {
     e.preventDefault();

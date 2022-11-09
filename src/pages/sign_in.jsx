@@ -9,7 +9,7 @@ export default function SignIn() {
   let email, password, submit;
 
   const [errors, setErrors] = createSignal([]);
-  const [loggedIn, setLoggedIn] = loggedInStatus();
+  const [loggedIn,] = loggedInStatus();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {

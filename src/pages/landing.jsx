@@ -2,11 +2,11 @@ import { useAppState } from "../utils/app_state_service";
 import { onMount } from "solid-js";
 
 export default function Landing() {
-  const [appState, setAppState] = useAppState();
+  const [appState,] = useAppState();
 
   onMount(() => {
     console.log("else wheere");
-    console.log(appState());
+    console.log(appState);
   });
 
   return (
