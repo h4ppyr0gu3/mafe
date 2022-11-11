@@ -8,11 +8,10 @@ export async function getMusicBrainz(path, params) {
   return axios
     .get(url, {
       headers: {
-        Application: import.meta.env.VITE_MB_APPLICATION_STRING,
         Accept: "application/json",
         "User-Agent": import.meta.env.VITE_MB_REQUEST_USER_AGENT,
       },
-      params: { params }
+      params,
     })
     .then((res) => {
       setResultState('success', true);

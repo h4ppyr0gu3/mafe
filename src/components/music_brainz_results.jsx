@@ -1,6 +1,6 @@
 import { useSearchState, useResultState } from "../utils/search_service.jsx";
 
-import { createSignal, For } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import TrendingSong from "./trending_song";
 
 export function MBResults() {

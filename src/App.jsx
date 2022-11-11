@@ -5,6 +5,7 @@ import SignIn from "./pages/sign_in";
 import SignUp from "./pages/sign_up";
 import Landing from "./pages/landing";
 import YTSearch from "./pages/yt_search";
+import AlbumSearch from "./pages/album_search";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/search" component={YTSearch} />
         <Route path="/sign_up" component={SignUp} />
         <Route path="/sign_in" component={SignIn} />
+        <Route path="/albums" component={AlbumSearch} />
       </Routes>
       <Footer />
     </>

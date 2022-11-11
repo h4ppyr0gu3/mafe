@@ -46,7 +46,7 @@ export default function SignIn() {
       <div class="container is-centered-middle">
         <div class="box is-flex-column">
           <div class="is-size-2">Sign In</div>
-          <Show when={errorsPresent()} fallback={<div />}>
+          <Show when={errorsPresent()} fallback={<div/>}>
             <Errors
               {...{
                 get errors() {
