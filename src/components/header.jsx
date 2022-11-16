@@ -58,12 +58,13 @@ export default function Header() {
         </div>
 
         <div ref={dropdownToggle} class="navbar-menu">
-          <div class="navbar-start">
+          <div class="navbar-end">
             <A class="navbar-item" href="/">
               Home
             </A>
-          </div>
-          <div class="navbar-end">
+            <A class="navbar-item" href="/albums">
+              Album Download
+            </A>
             <div class="navbar-item">
               <Show
                 when={loggedIn()}
