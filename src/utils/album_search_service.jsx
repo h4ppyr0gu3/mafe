@@ -5,6 +5,7 @@ const [historyState, setHistoryState] = createStore(
     artistSearch: null,
     artistResult: null,
     artistSelect: null,
+    albumSearch: null,
     albumResult: null,
     albumCount: null,
     albumSongs: null,

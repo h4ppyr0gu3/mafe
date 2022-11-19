@@ -16,8 +16,7 @@ export default function ArtistAlbumList() {
   );
 
   createEffect(() => {
-    console.log(historyState.albumResult);
-    console.log(historyState.albumSelect);
+    if (historyState.albumResult < 20) { return };
     setDisplay(
       historyState.albumResult != null &&
         historyState.albumSelect == null
@@ -29,6 +28,7 @@ export default function ArtistAlbumList() {
   function createObserver() {
     let target = document.querySelector('#observed5');
     let observer = new IntersectionObserver(callback);
+    if (target == null) { return };
     observer.observe(target);
   }
 
@@ -46,19 +46,28 @@ export default function ArtistAlbumList() {
     })
   }
 
+  function fetchParams() {
+    let default_params = {
+        "offset": historyState.albumResult.length,
+      }
+    console.log(historyState);
+    if (historyState.albumSearch == null) {
+      default_params["artist"] =  historyState.artistSelect.id
+    } else {
+      default_params["query"] = historyState.albumSearch
+    }
+    return default_params
+  }
+
   async function lazyLoadAlbums() {
-    console.log(historyState.albumCount);
-    console.log(historyState.albumResult);
     if (
+      historyState.albumSearch == null &&
       historyState.albumResult.length < historyState.albumCount ||
         historyState.albumCount == null
     ) {
 
       console.log(historyState.albumCount);
-      let params = {
-        "artist": historyState.artistSelect.id,
-        "offset": historyState.albumResult.length,
-      }
+      let params = fetchParams()
       let path = "/release"
       await getMusicBrainz(path, params).then(() => {
         setHistoryState(
@@ -74,12 +83,22 @@ export default function ArtistAlbumList() {
     }
   }
 
+  function heading() {
+    console.log(historyState.albumSearch == null);
+    console.log(historyState);
+    if (historyState.albumSearch == null) {
+      return "Artist's Albums"
+    } else {
+      return "Albums"
+    }
+  }
+
   return (
     <>
       <Show when={display()} 
         fallback={<div id="observed5" />}>
         <div class="container" id="albumList">
-          <p class="label pb-3">Artists albums</p>
+          <p class="label pb-3">{heading()}</p>
           <div class="columns is-multiline">
             <For each={historyState.albumResult}>{(el, i) => (
               <div class="column is-4">

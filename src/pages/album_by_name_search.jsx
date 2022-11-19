@@ -1,4 +1,4 @@
-import ArtistNames from '../components/artist_search';
+import AlbumNames from '../components/album_search';
 import ArtistList from '../components/artist_list';
 import ArtistAlbumList from '../components/artist_album_list';
 import SongList from '../components/song_list';
@@ -10,12 +10,11 @@ import SongList from '../components/song_list';
 //   albumResult: null,
 //   albumSelect: null,
 // }
-export default function AlbumSearch() {
+export default function AlbumByNameSearch() {
   return (
     <>
       <div class="container">
-        <ArtistNames/>
-        <ArtistList/>
+        <AlbumNames/>
         <ArtistAlbumList/>
         <SongList/>
       </div>

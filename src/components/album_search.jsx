@@ -3,8 +3,8 @@ import { useHistoryState } from '../utils/album_search_service';
 import { useResultState } from '../utils/search_service';
 import { getMusicBrainz } from '../utils/musicbrainz_requests';
 
-export default function ArtistNames() {
-  let artistQuery, searchArtist, params;
+export default function AlbumNames() {
+  let albumQuery, searchAlbum, params;
 
   const [historyState, setHistoryState] = useHistoryState();
   const [resultState, setResultState] = useResultState();
@@ -13,39 +13,37 @@ export default function ArtistNames() {
     e.preventDefault();
     toggleDisableButton();
     let params = {
-      "query": artistQuery.value,
-      "limit": 9,
+      "query": albumQuery.value,
     }
-    let path = "/artist"
-    setHistoryState('artistSearch', artistQuery.value);
+    let path = "/release"
+    setHistoryState('albumSearch', albumQuery.value);
     setHistoryState('artistResult', null);
     setHistoryState('artistSelect', null);
     setHistoryState('albumResult', null);
-    setHistoryState('albumSearch', null);
+    setHistoryState('artistSearch', null);
     setHistoryState('albumCount', null);
     setHistoryState('albumSongs', null);
     setHistoryState('albumSelect', null);
     await getMusicBrainz(path, params).then(() => {
-      console.log(resultState.data.data.artists);
-      setHistoryState('artistResult', resultState.data.data.artists);
+      setHistoryState('albumResult', resultState.data.data.releases);
       toggleDisableButton();
     });
   }
 
   function toggleDisableButton() {
-    searchArtist.disabled = !searchArtist.disabled;
+    searchAlbum.disabled = !searchAlbum.disabled;
   }
 
   return (
     <>
       <form onSubmit={handleSubmit} class="container">
         <InputField
-          ref={artistQuery}
-          label="Artist Name"
+          ref={albumQuery}
+          label="Album Name"
           value=""
           />
         <InputButton type="submit" value="Search" 
-          ref={searchArtist} />
+          ref={searchAlbum} />
       </form>
       </>
   )
