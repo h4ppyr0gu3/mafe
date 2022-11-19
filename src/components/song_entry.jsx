@@ -112,7 +112,6 @@ export default function SongEntry(props) {
       <Show when={shouldShow()} fallback={<div/>}>
         <For each={nextFour(resultState.data)}>{(i) => (
           <div>
-          <p> somehati {i} </p>
           <p> {i.title} </p>
             <NestedSongEntry song={i}/>
           </div>
