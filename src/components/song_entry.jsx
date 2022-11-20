@@ -13,20 +13,22 @@ export default function SongEntry(props) {
   const [resultState, setResultState] = useResultState();
   const [historyState, setHistoryState] = useHistoryState();
   const [shouldShow, setShouldShow] = createSignal(false);
+  const [result, setResult] = createSignal({});
 
   onMount(async () => {
     let path = "/api/v1/search"
     let params = {
-      "q": historyState.artistSelect.name + song.title + "audio",
+      "q": historyState.artistSelect.name + 
+        song.title + "audio",
       "type": "video",
       "sort_by": "relevance",
     }
     await getInvidious(path, params).then(() => {
-      // console.log(resultState.data[0]);
       videoId = resultState.data[0].videoId;
       videoTitle = resultState.data[0].title;
       publishedText = resultState.data[0].publishedText;
       lengthSeconds = resultState.data[0].lengthSeconds;
+      setResult(resultState.data);
       minutes = Math.floor(lengthSeconds / 60);
       var seconds = lengthSeconds - (minutes * 60);
       correctedSeconds = 
@@ -44,24 +46,7 @@ export default function SongEntry(props) {
     publishedTimeText.innerHTML = publishedText;
   }
 
-  // async function handleClick() {
-  //   console.log("handle click");
-  //   let params = {
-  //     "song": song.id,
-  //   }
-  //   let path = "/release"
-  //   await getMusicBrainz(path, params).then(() => {
-  //     setHistoryState('albumResult', resultState.data.data.releases);
-  //     setHistoryState('songSelect', song);
-  //   });
-  // }
-
   function handleShowMore() {
-    // event.preventDefault();
-    console.log("clicked");
-    console.log(resultState.data[2]);
-    console.log(shouldShow());
-    console.log(videoId);
     setShouldShow(!shouldShow());
   }
 
@@ -110,7 +95,7 @@ export default function SongEntry(props) {
         </div>
       </div>
       <Show when={shouldShow()} fallback={<div/>}>
-        <For each={nextFour(resultState.data)}>{(i) => (
+        <For each={nextFour(result())}>{(i) => (
           <div>
           <p> {i.title} </p>
             <NestedSongEntry song={i}/>
@@ -121,4 +106,3 @@ export default function SongEntry(props) {
     </div>
   );
 }
-// <NestedSongList songs={resultState.data}/>
