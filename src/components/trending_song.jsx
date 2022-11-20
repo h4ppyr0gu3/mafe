@@ -1,5 +1,5 @@
 import { createSignal, Show } from "solid-js";
-
+import { addToUserTracks } from "../utils/user_requests";
 
 export default function TrendingSong(props) {
 
@@ -17,6 +17,15 @@ export default function TrendingSong(props) {
 
   function addToUserLibrary() {
     console.log("adding to library");
+    console.log(song);
+    var params = {
+      "video_id": song.videoId,
+      "title": song.title,
+      "artist": song.author
+    }
+    addToUserTracks(params).then(() => {
+      console.log("yes")
+    });
   }
 
   return (

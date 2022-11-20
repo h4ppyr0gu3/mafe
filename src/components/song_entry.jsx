@@ -3,6 +3,7 @@ import { useHistoryState } from '../utils/album_search_service';
 import {  useResultState } from '../utils/search_service';
 import { onMount, createSignal, Show, For } from 'solid-js';
 import NestedSongEntry from './nested_song_entry';
+import { addToUserTracks } from '../utils/user_requests';
 
 export default function SongEntry(props) {
   let song = props.song
@@ -54,12 +55,8 @@ export default function SongEntry(props) {
     return array.slice(1, 5);
   }
 
-  function innerSong(props) {
-    return (
-      <div>
-        <p> {input} </p>
-      </div>
-    )
+  function addToTracks() {
+    console.log(clicked);
   }
 
   return (
@@ -84,7 +81,7 @@ export default function SongEntry(props) {
       </div>
       <div class="columns">
         <div class="column">
-          <div class="button">
+          <div class="button" onClick={addToTracks()}>
             Add to Tracks
           </div>
         </div>

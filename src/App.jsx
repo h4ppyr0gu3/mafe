@@ -7,6 +7,7 @@ import Landing from "./pages/landing";
 import YTSearch from "./pages/yt_search";
 import AlbumByArtistSearch from "./pages/album_by_artist_search";
 import AlbumByNameSearch from "./pages/album_by_name_search";
+import MyTracks from "./pages/my_tracks";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Routes>
         <Route path="/" component={Landing} />
         <Route path="/search" component={YTSearch} />
+        <Route path="/my_tracks" component={MyTracks} />
         <Route path="/sign_up" component={SignUp} />
         <Route path="/sign_in" component={SignIn} />
         <Route path="/album_by_artist" component={AlbumByArtistSearch} />

@@ -13,7 +13,6 @@ export async function getInvidious(path, params) {
       params
     })
     .then((res) => {
-      console.log(res);
       setResultState('success', true);
       setResultState('data', res.data);
     })

@@ -62,6 +62,12 @@ export default function Header() {
             <A class="navbar-item" href="/">
               Home
             </A>
+            <A class="navbar-item" href="/my_tracks">
+              My Tracks
+            </A>
+            <A class="navbar-item" href="/search">
+              Search Songs
+            </A>
             <A class="navbar-item" href="/album_by_artist">
               Album by Artist
             </A>

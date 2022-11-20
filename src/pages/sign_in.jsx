@@ -22,7 +22,7 @@ export default function SignIn() {
       }
       console.log(logIn);
       if (loggedIn()) {
-        navigate("/", {});
+        navigate("/", { replace: true });
       }
     });
   }
@@ -33,7 +33,7 @@ export default function SignIn() {
 
   onMount(() => {
     if (loggedIn()) {
-      navigate("/", {});
+      navigate("/", { replace: true });
     }
   });
 
