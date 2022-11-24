@@ -1,5 +1,5 @@
 import { createSignal, Show } from "solid-js";
-import { addToUserTracks } from "../utils/user_requests";
+import { addTrackToLibrary } from "../utils/user_song_requests";
 
 export default function TrendingSong(props) {
 
@@ -16,14 +16,12 @@ export default function TrendingSong(props) {
   }
 
   function addToUserLibrary() {
-    console.log("adding to library");
-    console.log(song);
     var params = {
       "video_id": song.videoId,
       "title": song.title,
       "artist": song.author
     }
-    addToUserTracks(params).then(() => {
+    addTrackToLibrary(params).then(() => {
       console.log("yes")
     });
   }
@@ -63,9 +61,9 @@ export default function TrendingSong(props) {
                   onClick={toggleVideo}>
                   Watch Video
                 </button>
-                <button class="button is-success mx-3"
+                <button class="button is-successful mx-3"
                   onClick={addToUserLibrary}>
-                  Add to Library
+                  Add to tracks
                 </button>
               </div>
             </div>

@@ -3,22 +3,13 @@ import { useResultState } from "../utils/search_service.jsx";
 import axios from "axios";
 import { useNavigate } from "@solidjs/router";
 
-// always return {
-//   success:
-//   errors:
-//   data:
-// }
-
 export async function userLogin(email, password) {
   const url = import.meta.env.VITE_API_URL + "/api/auth/sign_in";
   const [, setAppState] = useAppState();
 
-  let headers, body, response;
-  response = {
-    errors: null,
-    success: null,
-    data: null,
-  };
+  let headers, body;
+  let response = { errors: null, success: null, data: null };
+
   const data = {
     email: email,
     password: password,
@@ -44,11 +35,7 @@ export async function userLogin(email, password) {
 export async function userLogOut() {
   const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out";
   const [appState,] = useAppState();
-  var response = {
-    success: null,
-    errors: null,
-    data: null,
-  };
+  let response = { errors: null, success: null, data: null };
   return axios
     .delete(url, {
       headers: {
@@ -74,12 +61,9 @@ export async function userSignUp(email, password) {
   const redirect_url = import.meta.env.VITE_BASE_URL + "/search";
   const url = import.meta.env.VITE_API_URL + "/api/auth";
   const [, setAppState] = useAppState();
-  let headers, body, response;
-  response = {
-    success: null,
-    errors: null,
-    data: null,
-  };
+  let headers, body;
+  let response = { errors: null, success: null, data: null };
+
   const data = {
     email: email,
     password: password,
@@ -106,12 +90,8 @@ export async function userSignUp(email, password) {
 export async function addToUserTracks(params) {
   const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";
   const [appState, setAppState] = useAppState();
-  let headers, body, response;
-  response = {
-    success: null,
-    errors: null,
-    data: null,
-  };
+  let headers, body;
+  let response = { errors: null, success: null, data: null };
   console.log(appState.auth);
   console.log(params);
 
@@ -133,32 +113,5 @@ export async function addToUserTracks(params) {
       response.errors = res.response.data.errors;
       return response;
     });
-}
-
-export async function getUsersTracks(params) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";
-  const navigate = useNavigate();
-  const [resultState, setResultState] = useResultState();
-  const [appState, setAppState] = useAppState();
-  let response;
-  response = {
-    errors: null,
-    success: null,
-    data: null,
-  };
-  return axios.get(url, {
-    headers: {
-      Authorization: appState.auth,
-    },
-    params
-  }).then((res) => {
-    response.success = true;
-    response.data = res.data.songs
-    setResultState(response);
-    setAuth(res.headers.authorization);
-  }).catch((res) => {
-    navigate("/login", { replace: true });
-    setAuth("");
-  })
 }
 

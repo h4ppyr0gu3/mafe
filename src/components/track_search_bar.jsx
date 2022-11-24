@@ -1,6 +1,6 @@
 import { InputField, InputButton } from "../components/input_field";
 import { onMount, createSignal } from "solid-js";
-import { getUsersTracks } from "../utils/user_requests";
+import { getUsersTracks } from "../utils/user_song_requests";
 import { useResultState } from "../utils/search_service.jsx";
 import TrackEntry from "./track_entry";
 

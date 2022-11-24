@@ -1,30 +1,29 @@
-import { For, Show } from "solid-js";
+import { For, Show, createSignal, createEffect } from "solid-js";
+import { useErrors, useMessages } from "../utils/error_store";
 
-// Call like so:
+export function Success() {
+  const [messages, setMessages] = useMessages();
+  const [signal, setSignal] = createSignal(false);
+  const [shouldShow, setShouldShow] = createSignal(false);
 
-// <Errors {...{
-//   get errors() {
-//     return errors();
-//   },
-//   set errors(value) {
-//     setErrors(value);
-//   }}}/>
+  createEffect(() => {
+    console.log(messages.messages.length);
+    if (messages.messages.length > 0) {
+      setShouldShow(true);
+    }
+  });
 
-export function Errors(props) {
   function handleClick() {
-    props.errors = [];
-  }
-
-  function errorsPresent() {
-    return props.errors.length > 0;
+    setMessages({messages: []});
+    setShouldShow(!shouldShow());
   }
 
   return (
     <>
-      <Show when={errorsPresent()} fallback={<div />}>
-        <div class="notification is-failure">
+      <Show when={shouldShow()} fallback={<div />}>
+        <div class="notification is-success">
           <button class="delete" onClick={handleClick} />
-          <For each={props.errors}>
+          <For each={messages.messages}>
             {(el) => (
               <ul>
                 <li>{el}</li>
@@ -37,29 +36,37 @@ export function Errors(props) {
   );
 }
 
-export function Success(props) {
-  function handleClick() {
-    props.messages = [];
-  }
+export function Errors() {
+  const [errors, setErrors] = useErrors();
+  const [signal, setSignal] = createSignal(false);
+  const [shouldShow, setShouldShow] = createSignal(false);
 
-  function messagesPresent() {
-    return props.messages.length > 0;
+  createEffect(() => {
+    console.log(errors.errors.length);
+    if (errors.errors.length > 0) {
+      setShouldShow(true);
+    }
+  });
+
+  function handleClick() {
+    setErrors({errors: []});
+    setShouldShow(!shouldShow());
   }
 
   return (
     <>
-      <Show when={messagesPresent()} fallback={<div />}>
-        <div class="notification is-success">
-          <button class="delete" onClick={handleClick} />
-          <For each={props.messages}>
-            {(el) => (
-              <ul>
-                <li>{el}</li>
-              </ul>
-            )}
-          </For>
-        </div>
-      </Show>
+    <Show when={shouldShow()} fallback={<div />}>
+      <div class="notification is-danger">
+        <button class="delete close-button" onClick={handleClick} />
+        <For each={errors.errors}>
+          {(el) => (
+          <ul>
+            <li>{el}</li>
+          </ul>
+          )}
+        </For>
+      </div>
+    </Show>
     </>
   );
 }

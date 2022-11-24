@@ -5,11 +5,13 @@ import { userLogOut } from "../utils/user_requests";
 import { createSignal, Show } from "solid-js";
 import { A, useNavigate } from "@solidjs/router";
 import { Errors, Success } from "./errors";
+import { useErrors } from "../utils/error_store";
 
 export default function Header() {
   const [loggedIn,] = loggedInStatus();
-  const [errors, setErrors] = createSignal([]);
+  // const [errors, setErrors] = createSignal([]);
   const [messages, setMessages] = createSignal([]);
+  const [errors, setErrors] = useErrors();
 
   // onMount(() => {
   // });
@@ -18,9 +20,11 @@ export default function Header() {
   async function handleLogOut() {
     await userLogOut().then((res) => {
       if (res.success) {
-        setMessages(["You have successfully logged out"]);
+        setErrors({errors: [
+          "You have successfully logged out"
+        ]});
       } else {
-        setErrors(res.errors);
+        setErrors({errors: res.errors});
       }
     });
   }
@@ -30,6 +34,8 @@ export default function Header() {
   }
 
   const navigate = useNavigate();
+  console.log("hello");
+
 
   function handleMapp() {
     navigate("/search", {});
@@ -98,26 +104,8 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Errors
-        {...{
-          get errors() {
-            return errors();
-          },
-          set errors(value) {
-            setErrors(value);
-          },
-        }}
-      />
-      <Success
-        {...{
-          get messages() {
-            return messages();
-          },
-          set messages(value) {
-            setMessages(value);
-          },
-        }}
-      />
+      <Errors />
+      <Success />
     </>
   );
 }

@@ -3,7 +3,9 @@ import { loggedInStatus } from "../utils/app_state_service";
 import { onMount, createSignal, Show } from "solid-js";
 import { userLogin } from "../utils/user_requests";
 import { useNavigate } from "@solidjs/router";
+import Header from "../components/header";
 import { Errors } from "../components/errors";
+import Footer from "../components/footer";
 
 export default function SignIn() {
   let email, password, submit;
@@ -12,8 +14,7 @@ export default function SignIn() {
   const [loggedIn,] = loggedInStatus();
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit() {
     toggleDisableButton();
     await userLogin(email.value, password.value).then((logIn) => {
       if (!logIn.success) {
@@ -32,6 +33,7 @@ export default function SignIn() {
   }
 
   onMount(() => {
+    console.log("mount");
     if (loggedIn()) {
       navigate("/", { replace: true });
     }
@@ -43,21 +45,10 @@ export default function SignIn() {
 
   return (
     <>
+    <Header />
       <div class="container is-centered-middle">
         <div class="box is-flex-column">
           <div class="is-size-2">Sign In</div>
-          <Show when={errorsPresent()} fallback={<div/>}>
-            <Errors
-              {...{
-                get errors() {
-                  return errors();
-                },
-                set errors(value) {
-                  setErrors(value);
-                },
-              }}
-            />
-          </Show>
           <form onSubmit={handleSubmit}>
             <InputField ref={email} label="email" 
               type="text" value="" />
@@ -72,6 +63,7 @@ export default function SignIn() {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

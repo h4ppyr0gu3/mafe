@@ -6,6 +6,10 @@ import { userSignUp } from "../utils/user_requests";
 import { useNavigate } from "@solidjs/router";
 import { onMount } from "solid-js";
 
+import Footer from "../components/footer";
+import Header from "../components/header";
+import { Errors } from "../components/errors";
+
 export default function SignUp() {
   let email, password, passwordConfirmation, submit;
 
@@ -34,6 +38,7 @@ export default function SignUp() {
 
   return (
     <>
+  <Header />
       <div class="container is-centered-middle">
         <div class="box is-flex-column">
           <div class="is-size-2">Sign up</div>
@@ -62,6 +67,7 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
