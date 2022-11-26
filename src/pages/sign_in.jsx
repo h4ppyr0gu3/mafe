@@ -22,6 +22,7 @@ export default function SignIn() {
         setErrors(logIn.errors);
       }
       console.log(logIn);
+      console.log("testing");
       if (loggedIn()) {
         navigate("/", { replace: true });
       }
