@@ -8,8 +8,14 @@ export function Success() {
 
   createEffect(() => {
     console.log(messages.messages.length);
+    console.log("above is messages");
+    console.log(messages.messages);
     if (messages.messages.length > 0) {
       setShouldShow(true);
+      setTimeout(function() {
+        setShouldShow(false);
+        setMessages({messages: []});
+      }, 5000 );
     }
   });
 
@@ -21,12 +27,12 @@ export function Success() {
   return (
     <>
       <Show when={shouldShow()} fallback={<div />}>
-        <div class="notification is-success">
-          <button class="delete" onClick={handleClick} />
+        <div class="notification is-success floating-notification">
+          <button class="delete close-button" onClick={handleClick} />
           <For each={messages.messages}>
             {(el) => (
               <ul>
-                <li>{el}</li>
+                <li class="has-text-black">{el}</li>
               </ul>
             )}
           </For>
@@ -45,6 +51,10 @@ export function Errors() {
     console.log(errors.errors.length);
     if (errors.errors.length > 0) {
       setShouldShow(true);
+      setTimeout(function() {
+        setShouldShow(false);
+        setErrors({errors: []});
+      }, 5000 );
     }
   });
 
@@ -56,12 +66,12 @@ export function Errors() {
   return (
     <>
     <Show when={shouldShow()} fallback={<div />}>
-      <div class="notification is-danger">
+      <div class="notification is-danger floating-notification">
         <button class="delete close-button" onClick={handleClick} />
         <For each={errors.errors}>
           {(el) => (
           <ul>
-            <li>{el}</li>
+            <li class="has-text-black">{el}</li>
           </ul>
           )}
         </For>

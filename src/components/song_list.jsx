@@ -1,5 +1,5 @@
 import { useHistoryState } from '../utils/album_search_service';
-import {  useResultState } from '../utils/search_service';
+import { useResultState } from '../utils/search_service';
 import { getMusicBrainz } from '../utils/musicbrainz_requests';
 import { For, Show, createEffect } from 'solid-js';
 import SongEntry from './song_entry';

@@ -14,7 +14,15 @@ const [searchState, setSearchState] = createStore(
     date: null,
   }
 );
+const [searchResultState, setSearchResultState] = createStore(
+  {
+    data: [],
+    success: null,
+    errors: null,
+  }
+);
 
+export const useSearchResultState = () => [searchState, setSearchState];
 export const useSearchState = () => [searchState, setSearchState];
 export const useResultState = () => [resultState, setResultState];
 

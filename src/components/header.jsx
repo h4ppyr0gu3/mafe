@@ -8,10 +8,9 @@ import { Errors, Success } from "./errors";
 import { useErrors } from "../utils/error_store";
 
 export default function Header() {
-  const [loggedIn,] = loggedInStatus();
+  const [loggedIn, setLoggedIn] = loggedInStatus();
   // const [errors, setErrors] = createSignal([]);
-  const [messages, setMessages] = createSignal([]);
-  const [errors, setErrors] = useErrors();
+  const navigate = useNavigate();
 
   // onMount(() => {
   // });
@@ -19,22 +18,13 @@ export default function Header() {
 
   async function handleLogOut() {
     await userLogOut().then((res) => {
-      if (res.success) {
-        setErrors({errors: [
-          "You have successfully logged out"
-        ]});
-      } else {
-        setErrors({errors: res.errors});
-      }
+      setLoggedIn(false);
     });
   }
 
   function toggleDropdown() {
     dropdownToggle.classList.toggle("is-active");
   }
-
-  const navigate = useNavigate();
-  console.log("hello");
 
 
   function handleMapp() {

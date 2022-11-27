@@ -8,7 +8,6 @@ export default function ArtistAlbumList() {
 
   const [resultState, setResultState] = useResultState();
   const [historyState, setHistoryState] = useHistoryState();
-
   const [change, setChange] = createSignal();
   const [display, setDisplay] = createSignal(
     historyState.albumResult != null &&

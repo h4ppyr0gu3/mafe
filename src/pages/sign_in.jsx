@@ -14,16 +14,16 @@ export default function SignIn() {
   const [loggedIn,] = loggedInStatus();
   const navigate = useNavigate();
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     toggleDisableButton();
     await userLogin(email.value, password.value).then((logIn) => {
+      console.log(logIn);
       if (!logIn.success) {
         toggleDisableButton();
         setErrors(logIn.errors);
       }
-      console.log(logIn);
-      console.log("testing");
-      if (loggedIn()) {
+      if (localStorage.getItem("auth") != "") {
         navigate("/", { replace: true });
       }
     });

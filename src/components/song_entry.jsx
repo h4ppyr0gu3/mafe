@@ -56,7 +56,7 @@ export default function SongEntry(props) {
   }
 
   function addToTracks() {
-    console.log(clicked);
+    console.log("clicked");
   }
 
   return (
@@ -94,7 +94,6 @@ export default function SongEntry(props) {
       <Show when={shouldShow()} fallback={<div/>}>
         <For each={nextFour(result())}>{(i) => (
           <div>
-          <p> {i.title} </p>
             <NestedSongEntry song={i}/>
           </div>
         )}

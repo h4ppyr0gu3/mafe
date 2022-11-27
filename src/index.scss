@@ -162,3 +162,10 @@ body.dark .card.on-hover:hover {
 body.dark .close-button {
   background: rgb(26, 28, 29);
 }
+
+.floating-notification {
+  position: fixed !important;
+  top: 20px;
+  width: 100%;
+  z-index: 99;
+}

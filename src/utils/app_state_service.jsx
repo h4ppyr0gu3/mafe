@@ -19,12 +19,12 @@ function setInitialAppState() {
 
 export const useAppState = () => [appState, setAppState];
 export const setAuth = (auth) => {
+  if (auth === undefined || auth === null) { return}
   if (auth === "") {
     setLoggedIn(false);
   } else {
     setLoggedIn(true);
   }
-  setAppState("auth", auth);
-  localStorage.setItem("authorization", auth);
+  localStorage.setItem("auth", auth);
 };
 export const loggedInStatus = () => [loggedIn, setLoggedIn];
