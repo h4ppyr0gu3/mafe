@@ -6,12 +6,16 @@ import TrackEntry from "./track_entry";
 
 export default function TrackSearchBar() {
   let query, searchButton;
+  let filters, pagination, params;
 
   const [resultState, setResultState] = useResultState();
   const [songs, setSongs] = createSignal();
 
   onMount(async () => {
-    getUsersTracks().then(() => {
+    filters = {query: null, sortBy: "default", queryField: null} 
+    pagination = {offset: 0, limit: 20}
+    params = { filters: filters, pagination: pagination }
+    getUsersTracks(params).then(() => {
       console.log(resultState.data);
       setSongs(resultState.data);
       console.log(songs());

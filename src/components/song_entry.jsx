@@ -1,6 +1,7 @@
 import { getInvidious } from '../utils/invidious_requests';
+import { addTrackToLibrary } from "../utils/user_song_requests";
 import { useHistoryState } from '../utils/album_search_service';
-import {  useResultState } from '../utils/search_service';
+import { useResultState } from '../utils/search_service';
 import { onMount, createSignal, Show, For } from 'solid-js';
 import NestedSongEntry from './nested_song_entry';
 import { addToUserTracks } from '../utils/user_requests';
@@ -56,7 +57,13 @@ export default function SongEntry(props) {
   }
 
   function addToTracks() {
-    console.log("clicked");
+    var params = {
+      "video_id": videoId,
+      "title": song.title,
+      "artist": historyState.artistSelect.name,
+      "seconds": lengthSeconds
+    }
+    addTrackToLibrary(params)
   }
 
   return (
@@ -81,7 +88,7 @@ export default function SongEntry(props) {
       </div>
       <div class="columns">
         <div class="column">
-          <div class="button" onClick={addToTracks()}>
+          <div class="button" onClick={addToTracks}>
             Add to Tracks
           </div>
         </div>

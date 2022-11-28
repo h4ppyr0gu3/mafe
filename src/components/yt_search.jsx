@@ -1,5 +1,5 @@
 import { useSearchState, useResultState } from "../utils/search_service.jsx";
-import { onMount } from "solid-js";
+import { onMount, createSignal } from "solid-js";
 import { getInvidious } from "../utils/invidious_requests";
 // import { getMusicBrainz } from "../utils/musicbrainz_requests";
 
@@ -27,6 +27,7 @@ export function YTSearchBar() {
     }
     searchButton.disabled = true;
     await getInvidious("/api/v1/search", params).then(() => {
+
         searchButton.disabled = false;
     });
   }

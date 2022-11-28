@@ -1,10 +1,9 @@
 import { useSearchState, useResultState, useSearchResultState } from "../utils/search_service.jsx";
-
 import { createSignal, For, Show } from "solid-js";
 import TrendingSong from "./trending_song";
 
 export function MBResults() {
-  const [resultState, setResultState] = useSearchResultState();
+  const [resultState, setResultState] = useResultState();
   // const [searchResultState, ] = useSearchResultState();
   const [searchState, setSearchState] = useSearchState();
 

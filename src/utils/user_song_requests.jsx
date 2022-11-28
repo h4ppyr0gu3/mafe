@@ -16,12 +16,17 @@ export function addTrackToLibrary(params) {
       Authorization: localStorage.getItem("auth"),
     }
   }).then((res) => {
-    console.log(res);
-    response.success = true;
-    response.data = res.data.songs
-    setResultState(response);
-    setAuth(res.headers.authorization);
-    setMessages({messages: ["Successfully added to tracks"]});
+      setAuth(res.headers.authorization);
+    console.log(res)
+    if (res.data.errors.length == 0) {
+      response.success = true;
+      response.data = res.data.songs
+      setResultState(response);
+      setMessages({messages: ["Successfully added to tracks"]});
+    } else {
+      response.success = false;
+      setErrors({errors: res.data.errors});
+    }
   }).catch((res) => {
     setErrors({errors: res.response.data.errors});
     setAuth(res.headers.authorization);

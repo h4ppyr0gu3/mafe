@@ -19,11 +19,10 @@ export default function TrendingSong(props) {
     var params = {
       "video_id": song.videoId,
       "title": song.title,
-      "artist": song.author
+      "artist": song.author,
+      "seconds": song,lengthSeconds
     }
-    addTrackToLibrary(params).then(() => {
-      console.log("yes")
-    });
+    addTrackToLibrary(params)
   }
 
   return (
