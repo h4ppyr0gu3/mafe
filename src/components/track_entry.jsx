@@ -44,14 +44,14 @@ export default function TrackEntry(props) {
           <div class="columns">
             <div class="column">
               <button class="button mx-3">
-                Download
+                Edit
               </button>
               <button class="button mx-3">
                 Remove from Tracks
               </button>
-              <button class="button is-success mx-3">
-                Play
-              </button>
+              <a href={song.link} class="button is-success mx-3">
+                Download
+              </a>
             </div>
           </div>
         </div>

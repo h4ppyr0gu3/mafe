@@ -44,7 +44,7 @@ export function getUsersTracks(params) {
     params
   }).then((res) => {
     response.success = true;
-    response.data = res.data.songs
+    response.data = res.data
     setResultState(response);
     setAuth(res.headers.authorization);
   }).catch((res) => {
