@@ -13,6 +13,8 @@ export default function TrackEntry(props) {
     return window.innerWidth > 750;
   }
 
+  function handleDownload() {}
+
   return (
     <>
     <div class="card m-5">
@@ -49,6 +51,9 @@ export default function TrackEntry(props) {
               <button class="button mx-3">
                 Remove from Tracks
               </button>
+              <div class="button is-success mx-3" onClick={handleDownload}>
+                Download
+              </div>
               <a href={song.link} class="button is-success mx-3">
                 Download
               </a>
