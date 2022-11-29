@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useResultState } from "../utils/search_service.jsx";
+import { useResultState } from "../utils/search_service";
 
 export async function getMusicBrainz(path, params) {
   const url = import.meta.env.VITE_MB_API_URL + path
@@ -9,7 +9,8 @@ export async function getMusicBrainz(path, params) {
     .get(url, {
       headers: {
         Accept: "application/json",
-        "User-Agent": import.meta.env.VITE_MB_REQUEST_USER_AGENT,
+        // "User-Agent": import.meta.env.VITE_MB_REQUEST_USER_AGENT,
+        "User-Agent": "MApp/0.0.1 ( rogersdpdr@gmail.com )"
       },
       params,
     })
