@@ -190,3 +190,7 @@ body.dark .close-button {
   left: 5%;
   overflow: auto;
 }
+
+.panel-block:hover {
+  background-color: $dark;
+}
