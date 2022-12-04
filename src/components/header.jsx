@@ -1,6 +1,4 @@
-import {
-  loggedInStatus,
-} from "../utils/app_state_service";
+import { loggedInStatus } from "../utils/app_state_service";
 import { userLogOut } from "../utils/user_requests";
 import { createSignal, Show } from "solid-js";
 import { A, useNavigate } from "@solidjs/router";
@@ -25,7 +23,6 @@ export default function Header() {
   function toggleDropdown() {
     dropdownToggle.classList.toggle("is-active");
   }
-
 
   function handleMapp() {
     navigate("/search", {});

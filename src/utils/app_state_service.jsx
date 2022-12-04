@@ -19,7 +19,9 @@ function setInitialAppState() {
 
 export const useAppState = () => [appState, setAppState];
 export const setAuth = (auth) => {
-  if (auth === undefined || auth === null) { return}
+  if (auth === undefined || auth === null) {
+    return;
+  }
   if (auth === "") {
     setLoggedIn(false);
   } else {

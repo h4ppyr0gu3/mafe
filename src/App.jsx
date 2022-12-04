@@ -14,7 +14,6 @@ export default function App() {
   const [errors, setErrors] = useErrors();
 
   onMount(() => {
-    console.log("mointing");
     setErrors({errors: []});
     // test login
     // redirect_to_login();

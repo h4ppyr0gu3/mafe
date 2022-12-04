@@ -11,7 +11,7 @@ export default function SignIn() {
   let email, password, submit;
 
   const [errors, setErrors] = createSignal([]);
-  const [loggedIn,] = loggedInStatus();
+  const [loggedIn] = loggedInStatus();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -46,21 +46,19 @@ export default function SignIn() {
 
   return (
     <>
-    <Header />
+      <Header />
       <div class="container is-centered-middle">
         <div class="box is-flex-column">
           <div class="is-size-2">Sign In</div>
           <form onSubmit={handleSubmit}>
-            <InputField ref={email} label="email" 
-              type="text" value="" />
+            <InputField ref={email} label="email" type="text" value="" />
             <InputField
               ref={password}
               label="password"
               type="password"
               value=""
             />
-            <InputButton type="submit" value="Sign In" 
-              ref={submit} />
+            <InputButton type="submit" value="Sign In" ref={submit} />
           </form>
         </div>
       </div>

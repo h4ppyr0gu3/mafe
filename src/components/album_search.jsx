@@ -1,7 +1,7 @@
 import { InputField, InputButton } from "./input_field";
-import { useHistoryState } from '../utils/album_search_service';
-import { useResultState } from '../utils/search_service';
-import { getMusicBrainz } from '../utils/musicbrainz_requests';
+import { useHistoryState } from "../utils/album_search_service";
+import { useResultState } from "../utils/search_service";
+import { getMusicBrainz } from "../utils/musicbrainz_requests";
 
 export default function AlbumNames() {
   let albumQuery, searchAlbum, params;
@@ -13,19 +13,19 @@ export default function AlbumNames() {
     e.preventDefault();
     toggleDisableButton();
     let params = {
-      "query": albumQuery.value,
-    }
-    let path = "/release"
-    setHistoryState('albumSearch', albumQuery.value);
-    setHistoryState('artistResult', null);
-    setHistoryState('artistSelect', null);
-    setHistoryState('albumResult', null);
-    setHistoryState('artistSearch', null);
-    setHistoryState('albumCount', null);
-    setHistoryState('albumSongs', null);
-    setHistoryState('albumSelect', null);
+      query: albumQuery.value,
+    };
+    let path = "/release";
+    setHistoryState("albumSearch", albumQuery.value);
+    setHistoryState("artistResult", null);
+    setHistoryState("artistSelect", null);
+    setHistoryState("albumResult", null);
+    setHistoryState("artistSearch", null);
+    setHistoryState("albumCount", null);
+    setHistoryState("albumSongs", null);
+    setHistoryState("albumSelect", null);
     await getMusicBrainz(path, params).then(() => {
-      setHistoryState('albumResult', resultState.data.data.releases);
+      setHistoryState("albumResult", resultState.data.data.releases);
       toggleDisableButton();
     });
   }
@@ -37,14 +37,9 @@ export default function AlbumNames() {
   return (
     <>
       <form onSubmit={handleSubmit} class="container">
-        <InputField
-          ref={albumQuery}
-          label="Album Name"
-          value=""
-          />
-        <InputButton type="submit" value="Search" 
-          ref={searchAlbum} />
+        <InputField ref={albumQuery} label="Album Name" value="" />
+        <InputButton type="submit" value="Search" ref={searchAlbum} />
       </form>
-      </>
-  )
+    </>
+  );
 }

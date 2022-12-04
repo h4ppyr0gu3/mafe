@@ -12,26 +12,30 @@ export async function userLogin(email, password) {
 
   let headers, body;
   let response = { errors: null, success: null, data: null };
-  const data = {email: email, password: password};
+  const data = { email: email, password: password };
 
   return axios
     .post(url, data)
     .then((res) => {
       setAuth(res.headers.authorization);
-      setMessages({messages: ["Successfully Logged in"]});
+      setMessages({ messages: ["Successfully Logged in"] });
       response = { errors: null, success: true, data: res.data };
       return response;
     })
     .catch((res) => {
-      response = { errors: res.response.data.errors, success: false, data: null };
-      setErrors({errors: res.response.data.errors});
+      response = {
+        errors: res.response.data.errors,
+        success: false,
+        data: null,
+      };
+      setErrors({ errors: res.response.data.errors });
       return response;
     });
 }
 
 export async function userLogOut() {
   const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out";
-  const [appState,] = useAppState();
+  const [appState] = useAppState();
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
   let response = { errors: null, success: null, data: null };
@@ -45,14 +49,14 @@ export async function userLogOut() {
     })
     .then((res) => {
       setAuth("");
-      setMessages({messages: ["You have successfully logged out"]});
+      setMessages({ messages: ["You have successfully logged out"] });
       response.success = true;
       return response;
     })
     .catch((res) => {
       setAuth("");
       response.success = false;
-      setMessages({messages: ["You have successfully logged out"]});
+      setMessages({ messages: ["You have successfully logged out"] });
       response.errors = res.response.data.errors;
       return response;
     });
@@ -75,8 +79,11 @@ export async function userSignUp(email, password) {
   return axios
     .post(url, data)
     .then((res) => {
-      setMessages({messages: 
-        ["Account Successfully created, please Check your email to confirm"]});
+      setMessages({
+        messages: [
+          "Account Successfully created, please Check your email to confirm",
+        ],
+      });
       setAuth(res.headers.authorization);
       response.success = true;
       response.data = res.data;
@@ -85,7 +92,7 @@ export async function userSignUp(email, password) {
     .catch((res) => {
       console.log("fail");
       console.log(res);
-      setErrors({errors: [res.response.data.errors.full_messages]});
+      setErrors({ errors: [res.response.data.errors.full_messages] });
       response.success = false;
       response.errors = res.response.data.errors;
       return response;
@@ -102,11 +109,12 @@ export async function addToUserTracks(params) {
 
   return axios
     .post(url, params, {
-    headers: {
-      Authorization: appState.auth,
-      uid: "test1@test.com",
-    }
-  }).then((res) => {
+      headers: {
+        Authorization: appState.auth,
+        uid: "test1@test.com",
+      },
+    })
+    .then((res) => {
       headers = res.headers;
       body = res.data;
       response.success = true;
@@ -119,4 +127,3 @@ export async function addToUserTracks(params) {
       return response;
     });
 }
-

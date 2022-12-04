@@ -7,20 +7,17 @@ export function Success() {
   const [shouldShow, setShouldShow] = createSignal(false);
 
   createEffect(() => {
-    console.log(messages.messages.length);
-    console.log("above is messages");
-    console.log(messages.messages);
     if (messages.messages.length > 0) {
       setShouldShow(true);
-      setTimeout(function() {
+      setTimeout(function () {
         setShouldShow(false);
-        setMessages({messages: []});
-      }, 5000 );
+        setMessages({ messages: [] });
+      }, 5000);
     }
   });
 
   function handleClick() {
-    setMessages({messages: []});
+    setMessages({ messages: [] });
     setShouldShow(!shouldShow());
   }
 
@@ -48,35 +45,34 @@ export function Errors() {
   const [shouldShow, setShouldShow] = createSignal(false);
 
   createEffect(() => {
-    console.log(errors.errors.length);
     if (errors.errors.length > 0) {
       setShouldShow(true);
-      setTimeout(function() {
+      setTimeout(function () {
         setShouldShow(false);
-        setErrors({errors: []});
-      }, 5000 );
+        setErrors({ errors: [] });
+      }, 5000);
     }
   });
 
   function handleClick() {
-    setErrors({errors: []});
+    setErrors({ errors: [] });
     setShouldShow(!shouldShow());
   }
 
   return (
     <>
-    <Show when={shouldShow()} fallback={<div />}>
-      <div class="notification is-danger floating-notification">
-        <button class="delete close-button" onClick={handleClick} />
-        <For each={errors.errors}>
-          {(el) => (
-          <ul>
-            <li class="has-text-black">{el}</li>
-          </ul>
-          )}
-        </For>
-      </div>
-    </Show>
+      <Show when={shouldShow()} fallback={<div />}>
+        <div class="notification is-danger floating-notification">
+          <button class="delete close-button" onClick={handleClick} />
+          <For each={errors.errors}>
+            {(el) => (
+              <ul>
+                <li class="has-text-black">{el}</li>
+              </ul>
+            )}
+          </For>
+        </div>
+      </Show>
     </>
   );
 }

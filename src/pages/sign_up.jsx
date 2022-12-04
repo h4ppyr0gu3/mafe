@@ -1,7 +1,5 @@
 import { InputField, InputButton } from "../components/input_field";
-import {
-  loggedInStatus,
-} from "../utils/app_state_service";
+import { loggedInStatus } from "../utils/app_state_service";
 import { userSignUp } from "../utils/user_requests";
 import { useNavigate } from "@solidjs/router";
 import { onMount } from "solid-js";
@@ -14,7 +12,7 @@ export default function SignUp() {
   let email, password, passwordConfirmation, submit;
 
   const navigate = useNavigate();
-  const [loggedIn,] = loggedInStatus();
+  const [loggedIn] = loggedInStatus();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,7 +36,7 @@ export default function SignUp() {
 
   return (
     <>
-  <Header />
+      <Header />
       <div class="container is-centered-middle">
         <div class="box is-flex-column">
           <div class="is-size-2">Sign up</div>

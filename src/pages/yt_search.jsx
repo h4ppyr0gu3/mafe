@@ -8,7 +8,7 @@ export default function YTSearch() {
   const [signal, setSignal] = createSignal();
   return (
     <>
-  <Header />
+      <Header />
       <YTSearchBar onChange={setSignal()} />
       <MBResults results={signal()} />
       <Footer />

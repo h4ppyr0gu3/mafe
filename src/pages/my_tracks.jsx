@@ -6,11 +6,11 @@ import { Errors } from "../components/errors";
 export default function MyTracks() {
   return (
     <>
-  <Header />
-      <TrackSearchBar/>
+      <Header />
+      <TrackSearchBar />
       <Footer />
     </>
-    )
+  );
 }
 
-  // <Tracks/>
+// <Tracks/>
