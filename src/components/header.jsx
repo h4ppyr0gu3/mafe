@@ -28,6 +28,9 @@ export default function Header() {
     navigate("/search", {});
   }
 
+  function fetchNotifications() {
+  }
+
   return (
     <>
       <nav class="navbar" role="navigation" aria-label="main navigation">
