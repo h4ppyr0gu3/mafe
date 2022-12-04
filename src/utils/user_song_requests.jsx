@@ -37,15 +37,14 @@ export function addTrackToLibrary(params) {
 }
 
 export function getUsersTracks(params) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";
+  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks_index";
   const [resultState, setResultState] = useResultState();
   const [errors, setErrors] = useErrors();
   let response = { errors: null, success: null, data: null };
 
   return axios
-    .get(url, {
+    .post(url, params, {
       headers: { Authorization: localStorage.getItem("auth") },
-      params,
     })
     .then((res) => {
       response.success = true;
