@@ -4,14 +4,11 @@ import { createSignal, Show } from "solid-js";
 import { A, useNavigate } from "@solidjs/router";
 import { Errors, Success } from "./errors";
 import { useErrors } from "../utils/error_store";
+import Notifications from "./notifications";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = loggedInStatus();
-  // const [errors, setErrors] = createSignal([]);
   const navigate = useNavigate();
-
-  // onMount(() => {
-  // });
   let dropdownToggle;
 
   async function handleLogOut() {
@@ -26,9 +23,6 @@ export default function Header() {
 
   function handleMapp() {
     navigate("/search", {});
-  }
-
-  function fetchNotifications() {
   }
 
   return (
@@ -55,6 +49,7 @@ export default function Header() {
 
         <div ref={dropdownToggle} class="navbar-menu">
           <div class="navbar-end">
+            <Notifications/>
             <A class="navbar-item" href="/">
               Home
             </A>

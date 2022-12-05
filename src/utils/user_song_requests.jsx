@@ -3,7 +3,6 @@ import { useResultState } from "../utils/search_service.jsx";
 import { useAppState, setAuth } from "./app_state_service";
 import { useNavigate } from "@solidjs/router";
 import { useErrors, useMessages } from "../utils/error_store";
-import { Buffer } from "buffer";
 
 export function addTrackToLibrary(params) {
   const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";

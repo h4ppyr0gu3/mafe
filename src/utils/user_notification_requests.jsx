@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createStore } from "solid-js/store";
+import { useAppState, setAuth } from "./app_state_service";
+import { useResultState } from "./search_service.jsx";
 
 const [notifications, setNotifications] = createStore({notifications: []});
 export const useNotifications = () => [notifications, setNotifications];
@@ -12,26 +14,21 @@ const addNotification = (text) => {
 export function getNotifications() {
   const url = import.meta.env.VITE_API_URL + "/api/v1/notifications";
   let response = { errors: null, success: null, data: null };
+  const [resultState, setResultState] = useResultState();
 
   return axios
     .get(url, {
       headers: { Authorization: localStorage.getItem("auth") },
     })
     .then((res) => {
-      // if (res.data == undefined && res.data.errors.length > 0) {
-      //   setErrors({ errors: res.data.errors });
-      //   setAuth(res.headers.authorization);
-      // } else {
-      //   setAuth(res.headers.authorization);
-      //   response.data = res.data.url;
-      //   setResultState(response);
-      // }
+      response.data = res.data.notifications;
+      response.success = true;
+      setNotifications({notifications: res.data.notifications })
+      setAuth(res.headers.authorization);
     })
     .catch((res) => {
       console.log("failed to get notifications");
     });
-}
-
 }
 
 export function markAllAsRead() {

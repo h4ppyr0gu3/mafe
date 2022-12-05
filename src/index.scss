@@ -194,3 +194,29 @@ body.dark .close-button {
 .panel-block:hover {
   background-color: $dark;
 }
+
+.notifications-dropdown {
+  display: block;
+  z-index: 30;
+  width: 30%;
+  height: fit-content;
+  max-height: 50%;
+  position: fixed;
+  top: 60px;
+  left: 20%;
+  overflow: auto;
+  background-color: $darker;
+  border-radius: 3px;
+}
+
+.notification-element {
+  background-color: $lightish;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 3px;
+  
+  &:hover {
+    background-color: $dark;
+    cursor: pointer;
+  }
+}
