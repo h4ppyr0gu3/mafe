@@ -49,7 +49,7 @@ export default function Header() {
 
         <div ref={dropdownToggle} class="navbar-menu">
           <div class="navbar-end">
-            <Notifications/>
+            <Notifications />
             <A class="navbar-item" href="/">
               Home
             </A>

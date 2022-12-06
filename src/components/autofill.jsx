@@ -216,7 +216,7 @@ export function Autofill(props) {
                   class="panel-block has-text-white"
                   onClick={handleSelectResult}
                 >
-                  <div class="columns" style="width: 100%;">
+                  <div class="columns" style={{"width":"100%"}}>
                     <div
                       class="column"
                       value={el.item.id}
@@ -229,7 +229,7 @@ export function Autofill(props) {
                       value={el.item.id}
                       title={el.item.title}
                     >
-                      {el.item.disambiguation} =>{" "}
+                      {el.item.disambiguation} {" => "}
                       {el.item["first-release-date"]}
                     </div>
                   </div>
@@ -261,7 +261,7 @@ export function Autofill(props) {
                   onClick={handleSelectAlbum}
                   title={el.item.title}
                 >
-                  <div class="columns" style="width: 100%">
+                  <div class="columns" style={{"width":"100%"}}>
                     <div
                       class="column"
                       value={el.item.date.slice(0, 4)}

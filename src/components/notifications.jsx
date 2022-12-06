@@ -1,8 +1,10 @@
 import { onMount, createSignal, Show, For } from "solid-js";
-import { getNotifications, useNotifications } from "../utils/user_notification_requests";
+import {
+  getNotifications,
+  useNotifications,
+} from "../utils/user_notification_requests";
 
 export default function Notifications() {
-
   const [shouldShow, setShouldShow] = createSignal(false);
   const [notifications, setNotifications] = useNotifications();
 
@@ -10,15 +12,19 @@ export default function Notifications() {
     console.log("notifications");
     getNotifications().then(() => {
       console.log(notifications);
-      setTimeout(() => {fetchNotifications()}, 60000);
-    })
+      setTimeout(() => {
+        fetchNotifications();
+      }, 60000);
+    });
   }
 
-  const toggleNotifications = () => { setShouldShow(!shouldShow()) }
+  const toggleNotifications = () => {
+    setShouldShow(!shouldShow());
+  };
 
   onMount(() => {
-    fetchNotifications()
-  })
+    fetchNotifications();
+  });
 
   function handleClick(el) {
     // mark as read el.target.dataset.id
@@ -31,20 +37,25 @@ export default function Notifications() {
 
   return (
     <>
-    <a class="navbar-item" onClick={toggleNotifications} >
-      Notifications
-    </a>
-    <Show when={shouldShow()} fallback={<div/>}>
-      <div class="notifications-dropdown">
-        <For each={notifications.notifications} > 
-          {(el) => (
-          <div onClick={handleClick} data-id={el.id} data-link={el.link} class="notification-element">
-            {el.text}
-          </div>
-          )}
-        </For>
-      </div>
-    </Show>
+      <a class="navbar-item" onClick={toggleNotifications}>
+        Notifications
+      </a>
+      <Show when={shouldShow()} fallback={<div />}>
+        <div class="notifications-dropdown">
+          <For each={notifications.notifications}>
+            {(el) => (
+              <div
+                onClick={handleClick}
+                data-id={el.id}
+                data-link={el.link}
+                class="notification-element"
+              >
+                {el.text}
+              </div>
+            )}
+          </For>
+        </div>
+      </Show>
     </>
-  )
+  );
 }

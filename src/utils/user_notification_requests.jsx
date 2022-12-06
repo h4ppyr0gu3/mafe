@@ -3,13 +3,17 @@ import { createStore } from "solid-js/store";
 import { useAppState, setAuth } from "./app_state_service";
 import { useResultState } from "./search_service.jsx";
 
-const [notifications, setNotifications] = createStore({notifications: []});
+const [notifications, setNotifications] = createStore({ notifications: [] });
 export const useNotifications = () => [notifications, setNotifications];
 
 const addNotification = (text) => {
-  setTodos({notifications: 
-    [...notifications.notifications, { text: text, read: false }]});
-}
+  // setTodos({
+  //   notifications: [
+  //     ...notifications.notifications,
+  //     { text: text, read: false },
+  //   ],
+  // });
+};
 
 export function getNotifications() {
   const url = import.meta.env.VITE_API_URL + "/api/v1/notifications";
@@ -23,7 +27,7 @@ export function getNotifications() {
     .then((res) => {
       response.data = res.data.notifications;
       response.success = true;
-      setNotifications({notifications: res.data.notifications })
+      setNotifications({ notifications: res.data.notifications });
       setAuth(res.headers.authorization);
     })
     .catch((res) => {
@@ -31,5 +35,4 @@ export function getNotifications() {
     });
 }
 
-export function markAllAsRead() {
-}
+export function markAllAsRead() {}
