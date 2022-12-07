@@ -1,10 +1,13 @@
-import { onMount, createSignal, Show, For } from "solid-js";
+import { onMount, createSignal, Show, For, onCleanup } from "solid-js";
 import {
   getNotifications,
   useNotifications,
+  markAsRead,
 } from "../utils/user_notification_requests";
+import { Notification } from "../types/main";
 
 export default function Notifications() {
+  let timeout: number;
   const [shouldShow, setShouldShow] = createSignal(false);
   const [notifications, setNotifications] = useNotifications();
 
@@ -12,11 +15,15 @@ export default function Notifications() {
     console.log("notifications");
     getNotifications().then(() => {
       console.log(notifications);
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         fetchNotifications();
       }, 60000);
     });
   }
+
+  onCleanup(() => {
+    clearTimeout(timeout);
+  })
 
   const toggleNotifications = () => {
     setShouldShow(!shouldShow());
@@ -26,13 +33,15 @@ export default function Notifications() {
     fetchNotifications();
   });
 
-  function handleClick(el) {
-    // mark as read el.target.dataset.id
-    if (el.target.dataset.link != undefined) {
-      var link = document.createElement("a");
-      link.href = el.target.dataset.link;
-      link.click();
-    }
+  function handleClick(event: Event) {
+    const target = event.target as HTMLButtonElement;
+    markAsRead(target.dataset.id).then(() => {
+      if (target.dataset.link != undefined) {
+        const link = document.createElement("a");
+        link.href = target.dataset.link;
+        link.click();
+        }
+      })
   }
 
   return (
@@ -43,7 +52,7 @@ export default function Notifications() {
       <Show when={shouldShow()} fallback={<div />}>
         <div class="notifications-dropdown">
           <For each={notifications.notifications}>
-            {(el) => (
+            {(el: Notification) => (
               <div
                 onClick={handleClick}
                 data-id={el.id}
