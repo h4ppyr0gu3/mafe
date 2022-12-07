@@ -44,6 +44,10 @@ export default function Notifications() {
       })
   }
 
+  function handleMarkAsRead() {
+    console.log("all notifications will be read");
+  }
+
   return (
     <>
       <a class="navbar-item" onClick={toggleNotifications}>
@@ -51,6 +55,9 @@ export default function Notifications() {
       </a>
       <Show when={shouldShow()} fallback={<div />}>
         <div class="notifications-dropdown">
+          <Show when={notifications.notifications.length > 0} fallback={
+          <div> No unread Notifications to show</div>
+          }>
           <For each={notifications.notifications}>
             {(el: Notification) => (
               <div
@@ -63,6 +70,8 @@ export default function Notifications() {
               </div>
             )}
           </For>
+          <div class="button is-fullwidth" onClick={handleMarkAsRead}> Mark all as read </div>
+          </Show>
         </div>
       </Show>
     </>

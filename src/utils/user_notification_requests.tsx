@@ -4,14 +4,6 @@ import { useAppState, setAuth } from "./app_state_service";
 import { useResultState } from "./search_service.jsx";
 import { Notification } from "../types/main";
 
-// const [notifications, setNotifications] = createStore<{notifications: Notification[]}>({notifications: []});
-// export const useNotifications = () => [notifications, setNotifications];
-
-// const useNotifications: () => ({
-//     notifications: Notification[];
-// } | SetStoreFunction<{
-//     notifications: Notification[];
-// }>)[]
 interface NotificationState {
   notifications: Notification[];
 }
