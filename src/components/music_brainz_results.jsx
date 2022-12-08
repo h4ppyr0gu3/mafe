@@ -7,6 +7,7 @@ import { createSignal, For, Show } from "solid-js";
 import TrendingSong from "./trending_song";
 
 export function MBResults() {
+  // const [songs, setSongs] = createSignal([]);
   const [resultState, setResultState] = useResultState();
   // const [searchResultState, ] = useSearchResultState();
   const [searchState, setSearchState] = useSearchState();

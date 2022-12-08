@@ -22,7 +22,6 @@ export function addTrackToLibrary(params) {
       if (res.data.errors.length == 0) {
         response.success = true;
         response.data = res.data.songs;
-        setResultState(response);
         setMessages({ messages: ["Successfully added to tracks"] });
       } else {
         response.success = false;
