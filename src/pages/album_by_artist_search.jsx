@@ -9,15 +9,11 @@ import { Errors } from "../components/errors";
 export default function AlbumByArtistSearch() {
   return (
     <>
-      <Header />
-      <div class="container">
-        <ArtistNames />
-        <ArtistList />
-        <ArtistAlbumList />
-        <SongList />
-      </div>
-      <Footer />
-    </>
+    <ArtistNames />
+    <ArtistList />
+    <ArtistAlbumList />
+    <SongList />
+</>
   );
 }
 

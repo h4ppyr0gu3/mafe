@@ -16,14 +16,10 @@ import { Errors } from "../components/errors";
 export default function AlbumByNameSearch() {
   return (
     <>
-      <Header />
-      <div class="container">
-        <AlbumNames />
-        <ArtistAlbumList />
-        <SongList />
-      </div>
-      <Footer />
-    </>
+    <AlbumNames />
+    <ArtistAlbumList />
+    <SongList />
+</>
   );
 }
 

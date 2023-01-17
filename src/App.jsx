@@ -8,7 +8,9 @@ import AlbumByNameSearch from "./pages/album_by_name_search";
 import MyTracks from "./pages/my_tracks";
 import { useErrors } from "./utils/error_store";
 import { onMount } from "solid-js";
-import { Router } from "@solidjs/router";
+import SearchWrapper from "./pages/search_wrapper";
+// import { Router } from "@solidjs/router";
+// import Search from "./pages/search";
 
 export default function App() {
   const [errors, setErrors] = useErrors();
@@ -23,7 +25,11 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" component={Landing} />
-        <Route path="/search" component={YTSearch} />
+        <Route path="/search" component={SearchWrapper} >
+          <Route path="/" component={YTSearch} />
+          <Route path="/by_artist" component={AlbumByArtistSearch} />
+          <Route path="/by_album" component={AlbumByNameSearch} />
+        </Route>
         <Route path="/my_tracks" component={MyTracks} />
         <Route path="/sign_up" component={SignUp} />
         <Route path="/login" component={SignIn} />
