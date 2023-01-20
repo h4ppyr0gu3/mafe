@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "@solidjs/router";
 
 export async function userLogin(email, password) {
-  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_in";
+  const url = window.backend_server + "/api/auth/sign_in";
   const [, setAppState] = useAppState();
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
@@ -34,7 +34,7 @@ export async function userLogin(email, password) {
 }
 
 export async function userLogOut() {
-  const url = import.meta.env.VITE_API_URL + "/api/auth/sign_out";
+  const url = window.backend_server + "/api/auth/sign_out";
   const [appState] = useAppState();
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
@@ -65,8 +65,8 @@ export async function userLogOut() {
 export async function userSignUp(email, password) {
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
-  const redirect_url = import.meta.env.VITE_BASE_URL + "/sign_in";
-  const url = import.meta.env.VITE_API_URL + "/api/auth";
+  const redirect_url = window.backend_server + "/sign_in";
+  const url = window.backend_server + "/api/auth";
   const [, setAppState] = useAppState();
   let headers, body;
   let response = { errors: null, success: null, data: null };
@@ -100,7 +100,7 @@ export async function userSignUp(email, password) {
 }
 
 export async function addToUserTracks(params) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";
+  const url = window.backend_server + "/api/v1/tracks";
   const [appState, setAppState] = useAppState();
   let headers, body;
   let response = { errors: null, success: null, data: null };

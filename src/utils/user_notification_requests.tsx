@@ -12,7 +12,7 @@ const [notifications, setNotifications] = createStore<NotificationState>({notifi
 export const useNotifications = (): [NotificationState, SetStoreFunction<NotificationState>] => [notifications, setNotifications];
 
 export function getNotifications() {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/notifications";
+  const url = window.backend_server + "/api/v1/notifications";
   const response = { errors: null, success: null, data: null };
   const [resultState, setResultState] = useResultState();
 
@@ -36,7 +36,7 @@ export function markAllAsRead() {
 }
 
 export function markAsRead(id: string) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/notifications/" + id;
+  const url = window.backend_server + "/api/v1/notifications/" + id;
   const response = { errors: null, success: null, data: null };
   const [resultState, setResultState] = useResultState();
 

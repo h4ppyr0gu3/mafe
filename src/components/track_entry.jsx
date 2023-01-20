@@ -38,7 +38,7 @@ export default function TrackEntry(props) {
 
   function handleRemoveTrack(event) {
     event.preventDefault();
-    let url = import.meta.env.VITE_API_URL + "/api/v1/tracks/" + song.id;
+    let url = window.backend_server + "/api/v1/tracks/" + song.id;
     removeTrack(url);
     console.log("removed");
   }

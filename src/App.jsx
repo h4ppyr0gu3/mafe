@@ -16,6 +16,7 @@ export default function App() {
   const [errors, setErrors] = useErrors();
 
   onMount(() => {
+    window.backend_server = import.meta.env.VITE_API_URL;
     setErrors({errors: []});
     // test login
     // redirect_to_login();

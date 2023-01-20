@@ -1,10 +1,10 @@
-import { useSearchState, useResultState } from "../utils/search_service.jsx";
-import { onMount, createSignal } from "solid-js";
+import { useSearchState } from "../utils/search_service.jsx";
+import { onMount } from "solid-js";
 import { getInvidious } from "../utils/invidious_requests";
 // import { getMusicBrainz } from "../utils/musicbrainz_requests";
 
 export function YTSearchBar() {
-  let date, relevance, query, searchButton;
+  let date, relevance, query, searchButton, audio, explicit, queryString;
 
   const [, setSearchState] = useSearchState();
   // const [resultState, setResultState] = useResultState();
@@ -18,8 +18,12 @@ export function YTSearchBar() {
     setSearchState("query", query.value);
     setSearchState("relevance", relevance.value);
     setSearchState("date", date.value);
+    queryString = query.value
+    if (explicit.checked) queryString += " explicit";
+    if (audio.checked) queryString += " audio";
+    console.log(queryString)
     let params = {
-      q: query.value + "audio",
+      q: queryString,
       page: 1,
       type: "video",
       sort_by: relevance.value,
@@ -29,10 +33,6 @@ export function YTSearchBar() {
     await getInvidious("/api/v1/search", params).then(() => {
       searchButton.disabled = false;
     });
-  }
-
-  function buildSearchUrl() {
-    // trending_url "#{api}/api/v1/trending?type=Music"
   }
 
   return (
@@ -80,6 +80,16 @@ export function YTSearchBar() {
                 <option>reviews</option>
               </select>
             </div>
+          </div>
+          <div class="is-justify-content-center">
+            <label class="checkbox p-4">
+              <input type="checkbox" ref={audio} checked="true"/>
+              audio
+            </label>
+            <label class="checkbox p-4">
+              <input type="checkbox" ref={explicit} checked="true"/>
+              explicit
+            </label>
           </div>
         </div>
       </form>

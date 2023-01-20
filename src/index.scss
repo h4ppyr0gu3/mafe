@@ -5,8 +5,12 @@ $darker: #101314;
 
 body {
   background-color: $light;
-  height: 100vh;
+  min-height: 100vh;
   transition: all 0.4s ease;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 body .subtitle,
@@ -146,7 +150,8 @@ body.dark .card {
 body.dark .footer {
   color: $light;
   background: rgb(26, 28, 29);
-
+  position: sticky;
+  top: 100%;
 }
 
 .container {

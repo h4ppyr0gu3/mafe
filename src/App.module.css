@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+body { /* the main container */
+  min-height: 100vh;
+}
+
+footer {
+  position: sticky;
+  top: 100%;
+}

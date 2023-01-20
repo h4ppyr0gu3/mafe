@@ -5,7 +5,7 @@ import { useNavigate } from "@solidjs/router";
 import { useErrors, useMessages } from "../utils/error_store";
 
 export function addTrackToLibrary(params) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks";
+  const url = window.backend_server + "/api/v1/tracks";
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
   const [resultState, setResultState] = useResultState();
@@ -35,7 +35,7 @@ export function addTrackToLibrary(params) {
 }
 
 export function getUsersTracks(params) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks_index";
+  const url = window.backend_server + "/api/v1/tracks_index";
   const [resultState, setResultState] = useResultState();
   const [errors, setErrors] = useErrors();
   let response = { errors: null, success: null, data: null };
@@ -57,7 +57,7 @@ export function getUsersTracks(params) {
 }
 
 export function updateTrack(params, id) {
-  const url = import.meta.env.VITE_API_URL + "/api/v1/tracks/" + id;
+  const url = window.api_url + "/api/v1/tracks/" + id;
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
   const [resultState, setResultState] = useResultState();
