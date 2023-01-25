@@ -8,6 +8,13 @@ interface NotificationState {
   notifications: Notification[];
 }
 
+declare global {
+  interface Window {
+    backend_server: string;
+  }
+}
+
+
 const [notifications, setNotifications] = createStore<NotificationState>({notifications: []});
 export const useNotifications = (): [NotificationState, SetStoreFunction<NotificationState>] => [notifications, setNotifications];
 
