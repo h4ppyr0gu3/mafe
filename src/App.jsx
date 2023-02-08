@@ -17,6 +17,7 @@ export default function App() {
 
   onMount(() => {
     window.backend_server = import.meta.env.VITE_API_URL;
+    window.frontendServer = import.meta.env.VITE_BASE_URL;
     setErrors({errors: []});
     // test login
     // redirect_to_login();

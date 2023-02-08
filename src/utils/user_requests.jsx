@@ -65,7 +65,7 @@ export async function userLogOut() {
 export async function userSignUp(email, password) {
   const [errors, setErrors] = useErrors();
   const [messages, setMessages] = useMessages();
-  const redirect_url = window.backend_server + "/sign_in";
+  const redirect_url = window.frontendServer + "/sign_in";
   const url = window.backend_server + "/api/auth";
   const [, setAppState] = useAppState();
   let headers, body;
