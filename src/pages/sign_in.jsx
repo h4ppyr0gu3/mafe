@@ -6,6 +6,7 @@ import { useNavigate } from "@solidjs/router";
 import Header from "../components/header";
 import { Errors } from "../components/errors";
 import Footer from "../components/footer";
+import { confirmToken } from "../utils/miscellaneous_requests";
 
 export default function SignIn() {
   let email, password, submit;
@@ -38,7 +39,16 @@ export default function SignIn() {
     if (loggedIn()) {
       navigate("/", { replace: true });
     }
+    sendConfirmationRequest();
   });
+
+  function sendConfirmationRequest() {
+    const urlParams = new URL(window.location.href).searchParams;
+    const token = urlParams.get('confirmation_token');
+    if (token !== null) {
+      confirmToken(token);
+    }
+  }
 
   function errorsPresent() {
     return errors().length > 0;
