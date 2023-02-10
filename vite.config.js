@@ -1,9 +1,12 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import eslint from 'vite-plugin-eslint'
+import eslint from 'vite-plugin-eslint';
+import devtools from 'solid-devtools/vite';
 
 export default defineConfig({
-  plugins: [solidPlugin(),
+  plugins: [
+    devtools({autoname: true}),
+    solidPlugin(),
     { 
       ...eslint(),
       apply: 'build',

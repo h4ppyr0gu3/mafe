@@ -49,42 +49,42 @@ export default function Header() {
 
         <div ref={dropdownToggle} class="navbar-menu">
           <div class="navbar-end">
-            <Notifications />
             <A class="navbar-item" href="/">
               Home
-            </A>
-            <A class="navbar-item" href="/my_tracks">
-              My Tracks
             </A>
             <A class="navbar-item" href="/search">
               Search Songs
             </A>
-            <div class="navbar-item">
-              <Show
-                when={loggedIn()}
-                fallback={
-                  <div class="buttons">
-                    <A class="button is-primary" href="/sign_up">
-                      <strong>Sign up</strong>
-                    </A>
-                    <A class="button is-light" href="/sign_in">
-                      Log in
-                    </A>
-                  </div>
-                }
-              >
-                <div class="buttons">
-                  <button class="button is-light" onClick={handleLogOut}>
-                    Log out
-                  </button>
-                </div>
-              </Show>
-            </div>
+            <Show
+              when={loggedIn()}
+              fallback={
+              <div class="buttons">
+                <A class="button is-primary" href="/sign_up">
+                  <strong>Sign up</strong>
+                </A>
+                <A class="button is-light" href="/sign_in">
+                  Log in
+                </A>
+              </div>
+            }
+            >
+              <A class="navbar-item" href="/my_tracks">
+                My Tracks
+              </A>
+              <div class="navbar-item">
+                <Notifications />
+              </div>
+              <div class="buttons">
+                <button class="button is-light" onClick={handleLogOut}>
+                  Log out
+                </button>
+              </div>
+            </Show>
           </div>
         </div>
       </nav>
       <Errors />
       <Success />
-    </>
+      </>
   );
 }
