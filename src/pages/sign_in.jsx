@@ -4,14 +4,12 @@ import { onMount, createSignal, Show } from "solid-js";
 import { userLogin } from "../utils/user_requests";
 import { useNavigate } from "@solidjs/router";
 import Header from "../components/header";
-import { Errors } from "../components/errors";
 import Footer from "../components/footer";
 import { confirmToken } from "../utils/miscellaneous_requests";
 
 export default function SignIn() {
   let email, password, submit;
 
-  const [errors, setErrors] = createSignal([]);
   const [loggedIn] = loggedInStatus();
   const navigate = useNavigate();
 
@@ -22,10 +20,9 @@ export default function SignIn() {
       console.log(logIn);
       if (!logIn.success) {
         toggleDisableButton();
-        setErrors(logIn.errors);
       }
       if (localStorage.getItem("auth") != "") {
-        navigate("/", { replace: true });
+        navigate("/search", { replace: true });
       }
     });
   }
@@ -35,9 +32,8 @@ export default function SignIn() {
   }
 
   onMount(() => {
-    console.log("mount");
     if (loggedIn()) {
-      navigate("/", { replace: true });
+      navigate("/search", { replace: true });
     }
     sendConfirmationRequest();
   });
@@ -48,10 +44,6 @@ export default function SignIn() {
     if (token !== null) {
       confirmToken(token);
     }
-  }
-
-  function errorsPresent() {
-    return errors().length > 0;
   }
 
   return (

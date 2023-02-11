@@ -1,14 +1,12 @@
 import { useAppState, setAuth } from "./app_state_service";
-import { useErrors, useMessages } from "../utils/error_store.jsx";
 import { useResultState } from "../utils/search_service.jsx";
 import axios from "axios";
 import { useNavigate } from "@solidjs/router";
+import { createNotification, createNotifications } from "../utils/notifications";
 
 export async function userLogin(email, password) {
   const url = window.backend_server + "/api/auth/sign_in";
   const [, setAppState] = useAppState();
-  const [errors, setErrors] = useErrors();
-  const [messages, setMessages] = useMessages();
 
   let headers, body;
   let response = { errors: null, success: null, data: null };
@@ -18,17 +16,12 @@ export async function userLogin(email, password) {
     .post(url, data)
     .then((res) => {
       setAuth(res.headers.authorization);
-      setMessages({ messages: ["Successfully Logged in"] });
+      createNotification("Successfully logged in", "success");
       response = { errors: null, success: true, data: res.data };
       return response;
     })
     .catch((res) => {
-      response = {
-        errors: res.response.data.errors,
-        success: false,
-        data: null,
-      };
-      setErrors({ errors: res.response.data.errors });
+      createNotification("failed to log in", "failure");
       return response;
     });
 }
@@ -36,8 +29,6 @@ export async function userLogin(email, password) {
 export async function userLogOut() {
   const url = window.backend_server + "/api/auth/sign_out";
   const [appState] = useAppState();
-  const [errors, setErrors] = useErrors();
-  const [messages, setMessages] = useMessages();
   let response = { errors: null, success: null, data: null };
   return axios
     .delete(url, {
@@ -49,22 +40,20 @@ export async function userLogOut() {
     })
     .then((res) => {
       setAuth("");
-      setMessages({ messages: ["You have successfully logged out"] });
+      createNotification("You have successfully logged out", "success");
       response.success = true;
       return response;
     })
     .catch((res) => {
       setAuth("");
       response.success = false;
-      setMessages({ messages: ["You have successfully logged out"] });
+      createNotification("You have successfully logged out", "success");
       response.errors = res.response.data.errors;
       return response;
     });
 }
 
 export async function userSignUp(email, password) {
-  const [errors, setErrors] = useErrors();
-  const [messages, setMessages] = useMessages();
   const redirect_url = window.frontendServer + "/sign_in";
   const url = window.backend_server + "/api/auth";
   const [, setAppState] = useAppState();
@@ -79,11 +68,8 @@ export async function userSignUp(email, password) {
   return axios
     .post(url, data)
     .then((res) => {
-      setMessages({
-        messages: [
-          "Account Successfully created, please Check your email to confirm",
-        ],
-      });
+      createNotification("Account Successfully created, please Check your email to confirm",
+      "success");
       setAuth(res.headers.authorization);
       response.success = true;
       response.data = res.data;
@@ -92,7 +78,7 @@ export async function userSignUp(email, password) {
     .catch((res) => {
       console.log("fail");
       console.log(res);
-      setErrors({ errors: [res.response.data.errors.full_messages] });
+      createNotifications([res.response.data.errors.full_messages], "error");
       response.success = false;
       response.errors = res.response.data.errors;
       return response;

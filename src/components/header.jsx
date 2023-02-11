@@ -2,8 +2,6 @@ import { loggedInStatus } from "../utils/app_state_service";
 import { userLogOut } from "../utils/user_requests";
 import { createSignal, Show } from "solid-js";
 import { A, useNavigate } from "@solidjs/router";
-import { Errors, Success } from "./errors";
-import { useErrors } from "../utils/error_store";
 import Notifications from "./notifications";
 
 export default function Header() {
@@ -83,8 +81,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Errors />
-      <Success />
       </>
   );
 }

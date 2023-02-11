@@ -4,6 +4,7 @@ import { createSignal } from "solid-js";
 
 export default function YTSearch() {
   const [signal, setSignal] = createSignal();
+
   return (
     <>
       <YTSearchBar onChange={setSignal()} />

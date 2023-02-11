@@ -5,7 +5,7 @@ import { Portal } from "solid-js/web";
 import { createStore, produce } from "solid-js/store";
 import { getMusicBrainz } from "../utils/musicbrainz_requests";
 import { useResultState } from "../utils/search_service";
-import { useErrors, useMessages } from "../utils/error_store";
+import { createNotification } from "../utils/notifications";
 
 const [songParams, setSongParams] = createStore({
   title: null,
@@ -23,7 +23,6 @@ export function Autofill(props) {
   let title, genres, year, artists, totalSeconds, songSearch;
   let path, params, artistSongCount, songSelection, artistSelection;
 
-  const [errors, setErrors] = useErrors();
   const [resultState, setResultState] = useResultState();
 
   const [artistDropdown, setArtistDropdown] = createSignal(false);
@@ -39,9 +38,7 @@ export function Autofill(props) {
 
   onMount(() => {
     if (songParams.artists == null || songParams.artists == "") {
-      setErrors({
-        errors: ["You need to fill in artists before auto filling"],
-      });
+      createNotification("You need to fill in artists before auto filling", "info")
       return;
     }
     path = "/artist";

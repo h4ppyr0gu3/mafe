@@ -6,19 +6,15 @@ import YTSearch from "./pages/yt_search";
 import AlbumByArtistSearch from "./pages/album_by_artist_search";
 import AlbumByNameSearch from "./pages/album_by_name_search";
 import MyTracks from "./pages/my_tracks";
-import { useErrors } from "./utils/error_store";
 import { onMount } from "solid-js";
 import SearchWrapper from "./pages/search_wrapper";
 // import { Router } from "@solidjs/router";
 // import Search from "./pages/search";
 
 export default function App() {
-  const [errors, setErrors] = useErrors();
-
   onMount(() => {
     window.backend_server = import.meta.env.VITE_API_URL;
     window.frontendServer = import.meta.env.VITE_BASE_URL;
-    setErrors({errors: []});
     // test login
     // redirect_to_login();
   })

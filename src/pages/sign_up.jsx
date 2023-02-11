@@ -6,7 +6,6 @@ import { onMount } from "solid-js";
 
 import Footer from "../components/footer";
 import Header from "../components/header";
-import { Errors } from "../components/errors";
 
 export default function SignUp() {
   let email, password, passwordConfirmation, submit;

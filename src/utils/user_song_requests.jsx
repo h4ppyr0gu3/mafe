@@ -2,12 +2,10 @@ import axios from "axios";
 import { useResultState } from "../utils/search_service.jsx";
 import { useAppState, setAuth } from "./app_state_service";
 import { useNavigate } from "@solidjs/router";
-import { useErrors, useMessages } from "../utils/error_store";
+import { createNotification, createNotifications } from "../utils/notifications";
 
-export function addTrackToLibrary(params) {
+export async function addTrackToLibrary(params) {
   const url = window.backend_server + "/api/v1/tracks";
-  const [errors, setErrors] = useErrors();
-  const [messages, setMessages] = useMessages();
   const [resultState, setResultState] = useResultState();
   let response = { errors: null, success: null, data: null };
 
@@ -22,14 +20,14 @@ export function addTrackToLibrary(params) {
       if (res.data.errors.length == 0) {
         response.success = true;
         response.data = res.data.songs;
-        setMessages({ messages: ["Successfully added to tracks"] });
+        createNotification("Successfully added to tracks", "success");
       } else {
         response.success = false;
-        setErrors({ errors: res.data.errors });
+        createNotifications(res.data.errors, "failure");
       }
     })
     .catch((res) => {
-      setErrors({ errors: res.response.data.errors });
+      createNotifications(res.response.data.errors, "failure");
       setAuth(res.headers.authorization);
     });
 }
@@ -37,7 +35,6 @@ export function addTrackToLibrary(params) {
 export function getUsersTracks(params) {
   const url = window.backend_server + "/api/v1/tracks_index";
   const [resultState, setResultState] = useResultState();
-  const [errors, setErrors] = useErrors();
   let response = { errors: null, success: null, data: null };
 
   return axios
@@ -51,15 +48,13 @@ export function getUsersTracks(params) {
       setAuth(res.headers.authorization);
     })
     .catch((res) => {
-      setErrors(res.errors);
+      createNotifications(res.errors, "failure");
       setAuth(res.headers.authorization);
     });
 }
 
 export function updateTrack(params, id) {
   const url = window.api_url + "/api/v1/tracks/" + id;
-  const [errors, setErrors] = useErrors();
-  const [messages, setMessages] = useMessages();
   const [resultState, setResultState] = useResultState();
   let response = { errors: null, success: null, data: null };
 
@@ -75,21 +70,21 @@ export function updateTrack(params, id) {
         response.success = true;
         response.data = res.data.songs;
         setResultState(response);
-        setMessages({ messages: ["Successfully update track"] });
+        createNotification("Successfully update track", "success");
       } else {
         response.success = false;
-        setErrors({ errors: res.data.errors });
+        createNotifications(res.data.errors, "error");
       }
     })
     .catch((res) => {
-      setErrors({ errors: res.response.data.errors });
+      createNotifications(res.response.data.errors, "error");
+      createNotification("Something went wrong, please refresh and try again", "failure");
       setAuth(res.headers.authorization);
     });
 }
 
-export function downloadTrack(url) {
-  const [resultState, setResultState] = useResultState();
-  const [errors, setErrors] = useErrors();
+export async function downloadTrack(url) {
+  const [,setResultState] = useResultState();
   let response = { errors: null, success: null, data: null };
 
   return axios
@@ -98,7 +93,7 @@ export function downloadTrack(url) {
     })
     .then((res) => {
       if (res.data == undefined && res.data.errors.length > 0) {
-        setErrors({ errors: res.data.errors });
+        createNotifications(res.data.errors, "failure");
         setAuth(res.headers.authorization);
       } else {
         setAuth(res.headers.authorization);
@@ -107,29 +102,22 @@ export function downloadTrack(url) {
       }
     })
     .catch((res) => {
-      setErrors({
-        errors: ["Something went wrong, please refresh and try again"],
-      });
+      console.log(res)
+      createNotification("Something went wrong, please refresh and try again", "failure");
     });
 }
 
-export function removeTrack(url) {
-  const [resultState, setResultState] = useResultState();
-  const [messages, setMessages] = useMessages();
-  const [errors, setErrors] = useErrors();
-  let response = { errors: null, success: null, data: null };
-
+export async function removeTrack(url) {
   return axios
     .delete(url, {
       headers: { Authorization: localStorage.getItem("auth") },
     })
     .then((res) => {
       setAuth(res.headers.authorization);
-      setMessages({ messages: ["Successfully removed track"] });
+      createNotification("Successfully removed track", "success");
     })
     .catch((res) => {
-      setErrors({
-        errors: ["Something went wrong, please refresh and try again"],
-      });
+      console.log(res)
+      createNotification("Something went wrong, please refresh and try again", "failure");
     });
 }
