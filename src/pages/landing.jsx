@@ -1,5 +1,6 @@
 import svg from '../assets/hero.svg';
 import construction from '../assets/construction.svg';
+import { A } from "@solidjs/router";
 
 export default function Landing() {
   return (
@@ -20,15 +21,14 @@ export default function Landing() {
                   <a class="inline-block text-white no-underline hover:text-gray-400 hover:text-underline py-2 px-4" href="#">Blog</a>
                 </li>
                 <li class="mr-3">
-                  <a class="inline-block text-white no-underline hover:text-gray-400 hover:text-underline py-2 px-4" href="/sign_in">Log In</a>
+                  <A class="inline-block text-white no-underline hover:text-gray-400 hover:text-underline py-2 px-4" href="/sign_in">Log In</A>
                 </li>
               </ul>
-              <a href="/sign_up"
-                id="navAction"
+              <A href="/sign_up"
                 class="mx-auto lg:mx-0 hover:underline bg-gray-800 text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
               >
                 Sign Up
-              </a>
+              </A>
             </div>
           </div>
           <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
