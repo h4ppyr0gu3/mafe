@@ -79,7 +79,7 @@ export default function SignIn() {
         </main>
 
         <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-          <p class="text-white">Don't have an account? <a href="#" class="font-bold hover:underline">Sign up</a>.</p>
+          <p class="text-white">Don't have an account? <a href="/sign_up" class="hover:text-white font-bold hover:underline">Sign up</a>.</p>
         </div>
 
         <footer class="max-w-lg mx-auto flex justify-center text-white">
