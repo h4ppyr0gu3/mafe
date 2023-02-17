@@ -8,10 +8,6 @@ import { A } from "@solidjs/router";
 
 export default function AlbumByArtistSearch() {
 
-  function locationMatch(path) {
-    const location = useLocation()
-    return(location.pathname === path)
-  }
   return (
     <>
       <Header />
