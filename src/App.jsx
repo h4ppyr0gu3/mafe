@@ -7,7 +7,6 @@ import AlbumByArtistSearch from "./pages/album_by_artist_search";
 import AlbumByNameSearch from "./pages/album_by_name_search";
 import MyTracks from "./pages/my_tracks";
 import { onMount } from "solid-js";
-import SearchWrapper from "./pages/search_wrapper";
 // import { Router } from "@solidjs/router";
 // import Search from "./pages/search";
 
@@ -23,7 +22,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" component={Landing} />
-        <Route path="/search" component={SearchWrapper} >
+        <Route path="/search" >
           <Route path="/" component={YTSearch} />
           <Route path="/by_artist" component={AlbumByArtistSearch} />
           <Route path="/by_album" component={AlbumByNameSearch} />

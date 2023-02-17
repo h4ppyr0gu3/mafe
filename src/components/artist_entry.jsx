@@ -21,12 +21,16 @@ export default function ArtistEntry(props) {
   }
 
   return (
-    <div class="card on-hover p-3" onClick={handleClick}>
-      <div class="title">{artist.name}</div>
-      <div class="subtitle">
-        {artist.country} {artist.type} {artist.gender}
+    <div class="flex-row flex hover:cursor-pointer bg-neutral-700 hover:bg-neutral-500 m-3 p-3 rounded-lg mb-5 text-white" onClick={handleClick}>
+      <div class="flex w-2/6">Name: <span class="font-bold text-xl"> {artist.name}</span></div>
+      <div class="text-sm flex-col w-1/2">
+        <div class="flex">Country: <span class="text-lg font-bold">{artist.country}</span></div>
+        <div class="flex">Type: <span class="font-bold text-lg">{artist.type}</span></div>
       </div>
-      <div class="content">{artist.disambiguation}</div>
+      <div class="flex w-1/6 flex-col">
+        <div class="flex font-bold">{artist.disambiguation}</div>
+        <div class="flex">Gender: <span class="font-bold">{artist.gender}</span></div>
+      </div>
     </div>
   );
 }

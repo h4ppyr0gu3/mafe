@@ -38,9 +38,18 @@ export default function ArtistNames() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} class="container">
-        <InputField ref={artistQuery} label="Artist Name" value="" />
-        <InputButton type="submit" value="Search" ref={searchArtist} />
+      <form onSubmit={handleSubmit} class="flex flex-col bg-neutral-800 rounded-lg p-8 my-10 mx-5">
+        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg">
+          Search for an Artist
+        </div>
+        <input class="flex p-3 bg-neutral-600 rounded-t-lg focus:outline-none text-white" ref={artistQuery} type="text" />
+        <input class="flex p-3 bg-neutral-600 rounded-b-lg border-t border-neutral-800 text-white hover:cursor-pointer hover:bg-sky-400" 
+
+          ref={searchArtist} 
+          onClick={handleSubmit}
+          type="submit"
+          value="Search"
+        />
       </form>
     </>
   );

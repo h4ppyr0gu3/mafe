@@ -39,16 +39,19 @@ export default function AlbumEntry(props) {
 
   return (
     <>
-      <div class="card on-hover p-3" onClick={handleClick}>
-        <div class="title">{album.title}</div>
-        <div class="subtitle">
-          {album.date} {album.country}
+      <div class="flex flex-row hover:cursor-pointer bg-neutral-700 hover:bg-neutral-500 m-3 p-3 rounded-lg mb-5 text-white" onClick={handleClick}>
+        <div class="flex text-xl w-5/12">Title: <span class="font-bold">{album.title}</span></div>
+        <div class="flex flex-col text-sm w-1/6">
+          <div class="flex">Country: <span class="font-bold">{album.country}</span></div>
+          <div class="flex">{album.date?.substring(0, 4)}</div>
         </div>
-        <div class="content">{album.disambiguation}</div>
-        <div class="label is-underlined has-text-info">{displayArtist()}</div>
-        <For each={album["artist-credit"]}>
-          {(el) => <p class="is-size-5 has-text-weight-bold">{el.name}</p>}
-        </For>
+        <div class="flex text-sm w-1/6">{album.disambiguation}
+        <span class="text-sm" >{displayArtist()}</span></div>
+        <div class="text-lg flex font-bold">
+          <For each={album["artist-credit"]}>
+            {(el) => <p class="text-lg">{el.name}</p>}
+          </For>
+        </div>
       </div>
     </>
   );

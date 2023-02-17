@@ -11,6 +11,7 @@ export default function AlbumNames() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log("Album Search");
     toggleDisableButton();
     let params = {
       query: albumQuery.value,
@@ -36,9 +37,18 @@ export default function AlbumNames() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} class="container">
-        <InputField ref={albumQuery} label="Album Name" value="" />
-        <InputButton type="submit" value="Search" ref={searchAlbum} />
+      <form onSubmit={handleSubmit} class="mx-5 flex flex-col bg-neutral-800 rounded-lg p-8 my-10">
+        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg">
+          Search for an Album
+        </div>
+        <input class="flex p-3 bg-neutral-600 rounded-t-lg focus:outline-none text-white" ref={albumQuery} type="text" />
+        <input class="flex p-3 bg-neutral-600 rounded-b-lg border-t border-neutral-800 text-white hover:cursor-pointer hover:bg-sky-400" 
+
+          ref={searchAlbum} 
+          onClick={handleSubmit}
+          type="submit"
+          value="Search"
+        />
       </form>
     </>
   );

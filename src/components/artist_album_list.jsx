@@ -91,12 +91,11 @@ export default function ArtistAlbumList() {
   return (
     <>
       <Show when={display()} fallback={<div id="observed5" />}>
-        <div class="container" id="albumList">
-          <p class="label pb-3">{heading()}</p>
-          <div class="columns is-multiline">
+        <div class="p-3 bg-neutral-900 flex-col" id="albumList">
+          <p class="pb-3 text-3xl flex justify-center text-white">{heading()}</p>
             <For each={historyState.albumResult}>
               {(el, i) => (
-                <div class="column is-4">
+                <div>
                   <div
                     class="observed"
                     id={"observed" + (historyState.albumResult.length - i())}
@@ -107,7 +106,6 @@ export default function ArtistAlbumList() {
               )}
             </For>
           </div>
-        </div>
       </Show>
     </>
   );

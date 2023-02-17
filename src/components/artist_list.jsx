@@ -25,14 +25,12 @@ export default function ArtistList() {
         }
         fallback={<div />}
       >
-        <div class="container">
-          <p class="label pb-3">Artist list</p>
-          <div class="columns is-multiline">
+        <div class="py-5 flex-col">
+          <p class="text-3xl pb-3 text-white flex text-3xl justify-center">Artist list</p>
+          <div class="p-3">
             <For each={historyState.artistResult}>
               {(el) => (
-                <div class="column is-4">
-                  <ArtistEntry artist={el} />
-                </div>
+                <ArtistEntry artist={el} />
               )}
             </For>
           </div>
