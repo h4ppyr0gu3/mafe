@@ -13,12 +13,12 @@ export default function Notifications() {
 
   async function fetchNotifications() {
     console.log("notifications");
-    getNotifications().then(() => {
-      console.log(notifications);
-      timeout = setTimeout(() => {
-        fetchNotifications();
-      }, 60000);
-    });
+    // getNotifications().then(() => {
+    //   console.log(notifications);
+    //   timeout = setTimeout(() => {
+    //     fetchNotifications();
+    //   }, 60000);
+    // });
   }
 
   onCleanup(() => {

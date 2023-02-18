@@ -7,10 +7,10 @@ export function createNotification(text:string, type:string) {
   const parent = document.getElementById("notify")
   const notificationShell = document.createElement('div');
   const notification = document.createElement('div');
-  const notificationClasses = "w-11/12 text-gray-50 p-3 flex-auto"
+  const notificationClasses = "text-gray-50 p-3 flex-auto"
   const buttonClasses = "hover:bg-red-400 flex-auto bg-gray-50 m-2 rounded-full hover:text-secondary-900 items-center justify-center max-h-5 max-w-fit";
   const button = document.createElement('div');
-  let notificationShellClasses = "mx-5 my-2 min-w-[400px] rounded-xl border border-secondary-50 text-sm shadow-lg bg-neutral-900 border border-solid flex z-10"
+  let notificationShellClasses = "mx-5 my-2 min-w-[400px] w-fit rounded-xl border border-secondary-50 text-sm shadow-lg bg-neutral-900 border border-solid flex z-10 justify-center"
   notificationShellClasses += borderColorFromType(type);
   notificationShell.classList.add(...notificationShellClasses.split(" ").filter(n => n));
   notification.textContent = text;
@@ -28,7 +28,7 @@ export function createNotification(text:string, type:string) {
 
   setTimeout(() => {
     parent.removeChild(notificationShell);
-  }, 5000);
+  }, 3000);
 }
 
 function borderColorFromType(type:string):string {

@@ -40,7 +40,7 @@ export default function SongEntry(props) {
   function loadInvidiousData() {
     imageUrl = "https://img.youtube.com/vi/" + videoId + "/mqdefault.jpg";
     image.src = imageUrl;
-    YTTitle.innerHTML = "YT title: " + videoTitle;
+    YTTitle.innerHTML = "<span class='text-xl font-bold'>YT title: </span>" + videoTitle;
     runTime.innerHTML = "length: " + minutes + ":" + correctedSeconds;
     publishedTimeText.innerHTML = publishedText;
   }
@@ -64,42 +64,56 @@ export default function SongEntry(props) {
   }
 
   return (
-    <div class="card p-3">
-      <div class="title">{song.title}</div>
-      <div class="card-image">
-        <figure class="image is-4by3">
+    <div class="rounded-md m-5 flex flex-col bg-neutral-800 flex flex-col">
+      <div class="flex flex-row">
+        <div class="flex w-1/4">
           <img src="" alt={song.title} ref={image} />
-        </figure>
-      </div>
-      <div ref={entryPoint} />
-      <div class="subtitle">
-        {song["first-release-date"]} {song.type} {song.gender}
-      </div>
-      <p ref={YTTitle}> YT title: ... </p>
-      <p ref={runTime}> length: ...</p>
-      <p ref={publishedTimeText}> time: ... </p>
-      <div class="content">{song.disambiguation}</div>
-      <div class="columns">
-        <div class="column">
-          <div class="button" onClick={addToTracks}>
-            Add to Tracks
-          </div>
         </div>
-        <div class="column">
-          <div class="button" onClick={handleShowMore}>
-            Show more results
+        <div class="flex w-3/4 flex-row">
+          <div class="flex-col flex flex-1">
+            <div class="flex text-xl font-bold">{song.title}</div>
+            <p ref={YTTitle} class="flex text-xl">YT title: ... </p>
           </div>
-        </div>
-      </div>
-      <Show when={shouldShow()} fallback={<div />}>
-        <For each={nextFour(result())}>
-          {(i) => (
-            <div>
-              <NestedSongEntry song={i} />
+          <div class="flex flex-col flex-1">
+            <div class="flex">
+              <p ref={runTime}> length: ...</p>
             </div>
-          )}
-        </For>
-      </Show>
+            <div class="flex">
+              <p ref={publishedTimeText}> time: ... </p>
+            </div>
+            <div class="flex">
+              {song["first-release-date"].substring(0,4)} {song.type} {song.gender}
+            </div>
+            <div class="flex">{song.disambiguation}</div>
+          </div>
+          <div class="flex flex-col flex-1">
+            <div class="flex flex-1"/>
+            <div class="flex flex-1">
+              <div class="bg-neutral-900 hover:border-sky-400 border border-transparent p-3 hover:cursor-pointer m-1 rounded-md" onClick={addToTracks}>
+                Add to Tracks
+              </div>
+            </div>
+            <div class="flex flex-1"/>
+            <div class="flex flex-1">
+              <div class="bg-neutral-900 hover:border-sky-400 border border-transparent p-3 hover:cursor-pointer m-1 rounded-md" onClick={handleShowMore}>
+                Show more results
+              </div>
+            </div>
+            <div class="flex flex-1"/>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <Show when={shouldShow()} fallback={<div />}>
+          <For each={nextFour(result())}>
+            {(i) => (
+              <div>
+                <NestedSongEntry song={i} />
+              </div>
+            )}
+          </For>
+        </Show>
+      </div>
     </div>
   );
 }

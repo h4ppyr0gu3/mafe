@@ -48,13 +48,34 @@ export function getUsersTracks(params) {
       setAuth(res.headers.authorization);
     })
     .catch((res) => {
+      console.log(res);
       createNotifications(res.errors, "failure");
+    });
+}
+
+export async function getSingleTrack(id) {
+  const url = window.backend_server + "/api/v1/tracks/" + id;
+  const [resultState, setResultState] = useResultState();
+  let response = { errors: null, success: null, data: null };
+
+  return axios
+    .get(url, {
+      headers: { Authorization: localStorage.getItem("auth") },
+    })
+    .then((res) => {
+      console.log(res);
+      setAuth(res.headers.authorization);
+      return res.data;
+    })
+    .catch((res) => {
+      console.log(res.response.data.errors);
+      createNotifications(res.response.data.errors, "failure");
       setAuth(res.headers.authorization);
     });
 }
 
 export function updateTrack(params, id) {
-  const url = window.api_url + "/api/v1/tracks/" + id;
+  const url = window.backend_server + "/api/v1/tracks/" + id;
   const [resultState, setResultState] = useResultState();
   let response = { errors: null, success: null, data: null };
 
@@ -65,6 +86,7 @@ export function updateTrack(params, id) {
       },
     })
     .then((res) => {
+      console.log(res);
       setAuth(res.headers.authorization);
       if (res.data.errors.length == 0) {
         response.success = true;
@@ -72,6 +94,7 @@ export function updateTrack(params, id) {
         setResultState(response);
         createNotification("Successfully update track", "success");
       } else {
+        console.log
         response.success = false;
         createNotifications(res.data.errors, "error");
       }
@@ -79,7 +102,6 @@ export function updateTrack(params, id) {
     .catch((res) => {
       createNotifications(res.response.data.errors, "error");
       createNotification("Something went wrong, please refresh and try again", "failure");
-      setAuth(res.headers.authorization);
     });
 }
 

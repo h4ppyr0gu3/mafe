@@ -79,7 +79,7 @@ export function UpdateModal(props) {
 
   return (
     <Portal ref={test}>
-      <div class="overlay" onClick={toggleEdit}>
+      <div class="z-50 top-0 left-0 w-full h-full bg-transparent" onClick={toggleEdit}>
         <div class="card popup-content" onClick={removeClick}>
           <div class="level">
             <div class="level-left">

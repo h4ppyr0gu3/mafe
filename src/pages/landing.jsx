@@ -2,8 +2,18 @@ import svg from '../assets/hero.svg';
 import construction from '../assets/construction.svg';
 import { A } from "@solidjs/router";
 import Footer from "../components/footer";
+import bg from '../assets/landing.png';
+import bg2 from '../assets/landing2.jpg';
+import { onMount } from 'solid-js';
 
 export default function Landing() {
+  let bgHere, bgImg;
+
+  onMount(() => {
+    bgHere.style.backgroundImage = `url(${bg})`;
+    bgImg.style.backgroundImage = `url(${bg2})`;
+  });
+
   return (
     <>
       <div class="bg-neutral-900">
@@ -26,7 +36,7 @@ export default function Landing() {
                 </li>
               </ul>
               <A href="/sign_up"
-                class="mx-auto lg:mx-0 hover:underline bg-neutral-700 text-neutral-100 font-bold rounded-full lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none hover:text-white hover:text-white"
+                class="mx-auto lg:mx-0 hover:underline bg-neutral-700 text-neutral-100 font-bold rounded-full lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none hover:text-white hover:text-white m-2"
               >
                 Sign Up
               </A>
@@ -34,7 +44,7 @@ export default function Landing() {
           </div>
           <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
         </nav>
-        <div class="pt-24 bg-violet-800">
+        <div class="pt-24" ref={bgImg}>
           <div class="mx-20">
             <div class="px-8 mx-auto flex flex-wrap flex-col md:flex-row items-center">
               <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
@@ -55,7 +65,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-        <section class="bg-purple-900 py-8">
+        <section class="py-8" ref={bgHere}>
           <div class="max-w-5xl mx-auto m-8">
             <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
               Mapp by Ghost Brain

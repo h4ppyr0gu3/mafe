@@ -1,6 +1,7 @@
 import { InputField, InputButton } from "./input_field";
 import Fuse from "fuse.js";
-import { Show, createSignal, For, children } from "solid-js";
+import { Show, createSignal, For, children, onMount } from "solid-js";
+import { A } from "@solidjs/router";
 import { Portal } from "solid-js/web";
 import { getMusicBrainz } from "../utils/musicbrainz_requests";
 import { useResultState } from "../utils/search_service";
@@ -24,10 +25,6 @@ export default function TrackEntry(props) {
   var seconds = song.lengthSeconds - minutes * 60;
   var correctedSeconds = seconds < 10 ? "0" + seconds : seconds;
 
-  function largeScreen() {
-    return window.innerWidth > 750;
-  }
-
   function handleDownload() {
     downloadTrack(song.link).then(() => {
       var link = document.createElement("a");
@@ -43,14 +40,23 @@ export default function TrackEntry(props) {
     console.log("removed");
   }
 
+  onMount(() => {
+    // read the url bar and render edit modal if needed
+    path = window.location.pathname;
+    console.log(path);
+    if (path.split("/").includes("edit") && song.id == path.split("/").pop()) {
+      toggleEdit();
+    }
+  });
+
   return (
     <>
       <Show when={edit()} fallback={<div />}>
         <UpdateModal song={song} close={() => toggleEdit()} />
       </Show>
-      <div class="card m-5">
-        <div class="columns">
-          <div class="column is-3">
+      <div class="rounded-md m-5 mx-10 flex flex-col bg-neutral-700 hover:bg-neutral-500 hover:cursor-pointer">
+        <div class="flex flex-row">
+          <div class="flex w-1/4">
             <img
               src={
                 "https://img.youtube.com/vi/" + song.video_id + "/mqdefault.jpg"
@@ -60,30 +66,32 @@ export default function TrackEntry(props) {
               class="ml-2"
             />
           </div>
-          <div class="column">
-            <div class="columns">
-              <div class="column">{song.title}</div>
-              <div class="column">{song.artist}</div>
+          <div class="flex w-3/4">
+            <div class="flex flex-col flex-1 p-3">
+              <div class="flex text-xl font-bold flex-1">{song.title}</div>
+              <div class="flex flex-1">by:&nbsp;<span class="font-bold"> {song.artist}</span></div>
             </div>
-            <Show when={largeScreen()}>
-              <div class="columns">
-                <div class="column">
-                  {song.publishedText} {song.year}
-                </div>
-                <div class="column">
-                  {minutes}:{correctedSeconds}
-                </div>
+            <div class="flex flex-col flex-1 p-3">
+              <div class="flex flex-1">
+                {song.publishedText} {song.year?.substring(0, 4)}
               </div>
-            </Show>
-            <div class="columns">
-              <div class="column">
-                <button class="button mx-3" onClick={toggleEdit}>
+              <div class="flex flex-1">
+                {minutes}:{correctedSeconds}
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col justify-center items-center">
+              <div class="flex align-middle items-center flex-1">
+                <A href={"/my_tracks/edit/" + song.id} class="p-2 hover:underline bg-neutral-900 hover:border-sky-400 border border-transparent rounded-md">
                   Edit
+                </A>
+              </div>
+              <div class="flex flex-1 items-center align-middle">
+                <button class="p-2 hover:underline bg-neutral-900 hover:border-sky-400 border border-transparent rounded-md" onClick={handleRemoveTrack}>
+                  Remove
                 </button>
-                <button class="button mx-3" onClick={handleRemoveTrack}>
-                  Remove from Tracks
-                </button>
-                <div class="button is-success mx-3" onClick={handleDownload}>
+                </div>
+              <div class="flex flex-1 items-center align-middle">
+                <div class="p-2 hover:underline bg-neutral-900 hover:border-sky-400 border border-transparent rounded-md" onClick={handleDownload}>
                   Download
                 </div>
               </div>

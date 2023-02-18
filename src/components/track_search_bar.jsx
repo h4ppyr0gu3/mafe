@@ -10,9 +10,12 @@ export default function TrackSearchBar() {
 
   const [resultState, setResultState] = useResultState();
   const [songs, setSongs] = createSignal([]);
-  const [moreOptions, setMoreOptions] = createSignal(true);
+  const [moreOptions, setMoreOptions] = createSignal(false);
   const [totalCount, setTotalCount] = createSignal(0);
   const [displaySongs, setDisplaySongs] = createSignal(false);
+  limit = {value: 20};
+  queryField = {value: "all"};
+  state = {value: "all"};
 
   createEffect(() => {
     if (songs().length > 0) {
@@ -116,8 +119,13 @@ export default function TrackSearchBar() {
   return (
     <>
       <form class="mx-5 flex flex-col bg-neutral-800 rounded-lg p-8 my-10" onSubmit={handleSubmit}>
-        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg">
-          Search Your Songs
+        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg flex-row flex">
+          <div class="flex flex-1">
+            Search Your Songs
+          </div>
+          <div class="flex flex-1 justify-end align-middle">
+            <span class="test-sm font-normal">total:</span>&nbsp; {totalCount()}
+          </div>
         </div>
         <input
           class="flex p-3 bg-neutral-600 rounded-t-lg focus:outline-none text-white"

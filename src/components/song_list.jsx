@@ -14,18 +14,14 @@ export default function songList() {
   return (
     <>
       <Show when={historyState.albumSongs != null} fallback={<div />}>
-        <div class="container">
-          <p class="label pb-3">song list</p>
-          <div class="columns is-multiline">
+        <div class="flex flex-col">
+          <p class="flex text-3xl justify-center p-2">song list</p>
             <For each={historyState.albumSongs}>
               {(el) => (
-                <div class="column is-6">
-                  <SongEntry song={el} />
-                </div>
+                <SongEntry song={el} />
               )}
             </For>
           </div>
-        </div>
       </Show>
     </>
   );
