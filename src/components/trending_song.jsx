@@ -1,4 +1,5 @@
 import { createSignal, Show } from "solid-js";
+// import { writeSignal } from "solid-js/types/reactive/signal";
 import { addTrackToLibrary } from "../utils/user_song_requests";
 
 export default function TrendingSong(props) {
@@ -8,12 +9,15 @@ export default function TrendingSong(props) {
   var minutes = Math.floor(song.lengthSeconds / 60);
   var seconds = song.lengthSeconds - minutes * 60;
   var correctedSeconds = seconds < 10 ? "0" + seconds : seconds;
+  var container;
 
   function largeScreen() {
     return window.innerWidth > 750;
   }
 
-  function addToUserLibrary() {
+  function addToUserLibrary(event) {
+    event.preventDefault()
+    event.stopPropagation()
     var params = {
       video_id: song.videoId,
       title: song.title,
@@ -23,60 +27,66 @@ export default function TrendingSong(props) {
     addTrackToLibrary(params);
   }
 
+  function instantDownload(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log("Instant Download");
+  }
+
   return (
     <>
-      <div class="card m-5">
-        <div class="columns">
-          <div class="column is-3">
+      <div class="rounded-md m-5 mx-10 flex flex-col bg-neutral-700 hover:bg-neutral-500 hover:cursor-pointer" onClick={toggleVideo} ref={container} id="videoWidth">
+        <div class="flex flex-row">
+          <div class="flex w-1/4">
             <img
-              src={
-                "https://img.youtube.com/vi/" + song.videoId + "/mqdefault.jpg"
-              }
+              src={ "https://img.youtube.com/vi/" + song.videoId + "/mqdefault.jpg" }
               alt={song.title}
-              style={{ "border-radius": "5px" }}
-              class="ml-2"
+              class="m-2 object-cover rounded-md"
             />
           </div>
-          <div class="column">
-            <div class="columns">
-              <div class="column">{song.title}</div>
-              <div class="column">{song.author}</div>
+          <div class="flex w-3/4 flex-row">
+            <div class="flex flex-col flex-1 p-3">
+              <div class="flex text-xl font-bold flex-1">{song.title}</div>
+              <div class="flex flex-1">by:&nbsp;<span class="font-bold"> {song.author}</span></div>
             </div>
-            <Show when={largeScreen()}>
-              <div class="columns">
-                <div class="column">{song.publishedText}</div>
-                <div class="column">
-                  {minutes}:{correctedSeconds}
-                </div>
+            <div class="lg:flex flex-col hidden lg:flex-1 p-3">
+              <div class="flex flex-1">{song.publishedText}</div>
+              <div class="flex flex-1">
+                {minutes}:{correctedSeconds}
               </div>
-            </Show>
-            <div class="columns">
-              <div class="column">
-                <button class="button mx-3" onClick={toggleVideo}>
-                  Watch Video
-                </button>
+            </div>
+            <div class="flex flex-col flex-1 justify-center items-center">
+              <div class="flex flex-1 align-middle items-center">
                 <button
-                  class="button is-successful mx-3"
+                  class="bg-neutral-900 rounded-lg h-fit p-2 z-10 hover:border-sky-400 border border-neutral-900 hover:underline"
                   onClick={addToUserLibrary}
                 >
                   Add to tracks
                 </button>
               </div>
+              <div class="flex flex-1">
+                <button
+                  class="bg-neutral-900 h-fit rounded-lg p-2 z-10 hover:border-sky-400 border border-neutral-900 hover:underline"
+                  onClick={instantDownload}
+                >
+                  Instant Download coming soon 
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <Show when={showVideo()}>
-          <iframe
-            width={largeScreen() ? 560 : window.innerWidth - 30}
-            height={
-              largeScreen() ? 315 : Math.floor(window.innerWidth / 16) * 9
-            }
-            src={"https://www.youtube.com/embed/" + song.videoId}
-            title="YouTube video player"
-            frameborder="0"
-            allowfullscreen
-          />
-        </Show>
+        <div class="flex">
+          <Show when={showVideo()}>
+            <iframe
+              width={container.scrollWidth}
+              height={ Math.floor(container.scrollWidth / 16) * 10 }
+              src={"https://www.youtube.com/embed/" + song.videoId}
+              title="YouTube video player"
+              frameborder="1"
+              allowfullscreen
+            />
+          </Show>
+        </div>
       </div>
     </>
   );

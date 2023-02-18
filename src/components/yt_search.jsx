@@ -1,12 +1,17 @@
 import { useSearchState } from "../utils/search_service.jsx";
-import { onMount } from "solid-js";
+import { onMount, Show, createSignal } from "solid-js";
 import { getInvidious } from "../utils/invidious_requests";
 // import { getMusicBrainz } from "../utils/musicbrainz_requests";
 
 export function YTSearchBar() {
   let date, relevance, query, searchButton, audio, explicit, queryString;
+  relevance = {value: null};
+  date = {value: null};
+  explicit = {checked: true};
+  audio = {checked: true};
 
   const [, setSearchState] = useSearchState();
+  const [moreOptions, setMoreOptions] = createSignal(false);
   // const [resultState, setResultState] = useResultState();
 
   onMount(async () => {
@@ -35,33 +40,31 @@ export function YTSearchBar() {
     });
   }
 
+  function toggleMoreOptions(e) {
+    e.preventDefault();
+    console.log("toggle more options");
+    setMoreOptions(!moreOptions());
+  }
+
   return (
     <>
-      <form class="my-5">
-        <div class="field is-grouped is-grouped-multiline">
-          <div class="control is-expanded">
+      <form class="mx-5 flex flex-col bg-neutral-800 rounded-lg p-8 my-10">
+        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg">
+          Search for a Song
+        </div>
             <input
-              class="input"
+              class="flex p-3 bg-neutral-600 rounded-t-lg focus:outline-none text-white"
               type="text"
               ref={query}
               placeholder="Enter Phrase or URL"
             />
-          </div>
-          <div class="control">
-            <input
-              class="button darker"
-              type="submit"
-              value="Search"
-              onClick={handleSubmit}
-              ref={searchButton}
-            />
-          </div>
-        </div>
-        <div class="field is-flex is-justify-content-center">
-          <div class="control">
-            <div class="select m-2">
-              <select ref={date}>
-                <option value={""}>date</option>
+        <Show when={moreOptions()} fallback={
+          <button type="button" class="bg-neutral-600 border-neutral-800 border-y hover:bg-sky-400" onClick={toggleMoreOptions}>More Options </button>
+        }>
+          <div class="flex-col sm:flex-row flex justify-around py-2 bg-neutral-600 border-neutral-800 border-t">
+            <div class="flex">
+              <select ref={date} class="rounded-md bg-neutral-700 text-white shadow-sm hover:cursor-pointer p-2">
+                <option value={""}>Date</option>
                 <option>hour</option>
                 <option>today</option>
                 <option>week</option>
@@ -69,29 +72,33 @@ export function YTSearchBar() {
                 <option>year</option>
               </select>
             </div>
-          </div>
-          <div class="control">
-            <div class="select m-2">
-              <select ref={relevance}>
-                <option value={""}>sort by</option>
+            <div class="flex">
+              <select ref={relevance} class="rounded-md bg-neutral-700 text-white shadow-sm hover:cursor-pointer p-2">
+                <option value={""}>Sort By</option>
                 <option>relevance</option>
                 <option>date</option>
                 <option>rating</option>
                 <option>reviews</option>
               </select>
             </div>
+            <div class="flex items-center">
+              <input type="checkbox" ref={audio} checked="true" class="h-4 w-4 rounded text-white shadow-sm"/>
+              <label class="text-sm font-medium text-white">audio</label>
+            </div>
+            <div class="flex items-center space-x-2 m-2">
+              <input type="checkbox" ref={explicit} checked="true" class="h-4 w-4 rounded text-white shadow-sm"/>
+              <label class="text-sm font-medium text-white"> explicit </label>
+            </div>
           </div>
-          <div class="is-justify-content-center">
-            <label class="checkbox p-4">
-              <input type="checkbox" ref={audio} checked="true"/>
-              audio
-            </label>
-            <label class="checkbox p-4">
-              <input type="checkbox" ref={explicit} checked="true"/>
-              explicit
-            </label>
-          </div>
-        </div>
+          <button class="bg-neutral-600 border-neutral-800 border-y hover:bg-sky-400" onClick={toggleMoreOptions}>Less Options </button>
+        </Show>
+            <input
+              class="flex p-3 bg-neutral-600 rounded-b-lg text-white hover:cursor-pointer hover:bg-sky-400"
+              type="submit"
+              value="Search"
+              onClick={handleSubmit}
+              ref={searchButton}
+            />
       </form>
     </>
   );
