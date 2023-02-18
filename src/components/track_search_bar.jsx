@@ -10,7 +10,7 @@ export default function TrackSearchBar() {
 
   const [resultState, setResultState] = useResultState();
   const [songs, setSongs] = createSignal([]);
-  const [more, setMore] = createSignal(false);
+  const [moreOptions, setMoreOptions] = createSignal(true);
   const [totalCount, setTotalCount] = createSignal(0);
   const [displaySongs, setDisplaySongs] = createSignal(false);
 
@@ -97,8 +97,8 @@ export default function TrackSearchBar() {
     console.log("remaining");
   }
 
-  function handleMore() {
-    setMore(!more());
+  function toggleMoreOptions() {
+    setMoreOptions(!moreOptions());
   }
 
   function handleReset(event) {
@@ -115,128 +115,92 @@ export default function TrackSearchBar() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div class="my-5">
-          <div class="level">
-            <div class="level-left">
-              <div class="level-item">
-                <div class="field pl-2 is-grouped is-grouped-multiline">
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="text"
-                      ref={query}
-                      placeholder="Enter Phrase or URL"
-                    />
-                  </div>
-                  <div class="control">
-                    <input
-                      class="button darker"
-                      type="submit"
-                      value="Search"
-                      onClick={handleSubmit}
-                      ref={searchButton}
-                    />
-                  </div>
-                  <div class="control">
-                    <button
-                      class="button darker"
-                      value="Search"
-                      onClick={handleReset}
-                    >
-                      Reset Search
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <form class="mx-5 flex flex-col bg-neutral-800 rounded-lg p-8 my-10" onSubmit={handleSubmit}>
+        <div class="bg-neutral-800 text-white text-2xl font-bold p-2 rounded-t-lg">
+          Search Your Songs
+        </div>
+        <input
+          class="flex p-3 bg-neutral-600 rounded-t-lg focus:outline-none text-white"
+          type="text"
+          ref={query}
+          placeholder="Enter Phrase"
+        />
+        <Show when={moreOptions()} fallback={
+          <button type="button" class="bg-neutral-600 border-neutral-800 border-y hover:bg-sky-400" onClick={toggleMoreOptions}>More Options </button>
+        }>
+          <div class="flex-row flex bg-neutral-600 border-t border-neutral-800 justify-around pt-3">
+            <div class="flex">
+              <select ref={queryField} class="rounded-md bg-neutral-700 text-white shadow-sm hover:cursor-pointer p-2">
+                <option value="all">Search by</option>
+                <option>title</option>
+                <option>artist</option>
+                <option>genre</option>
+                <option>date</option>
+              </select>
             </div>
-
-            <div class="level-right">
-              <div class="level-item">
-                <div
-                  class="button is-inverted is-outlined"
-                  onClick={handleMore}
-                >
-                  More Options
-                </div>
+            <div class="flex">
+              <select ref={state} class="rounded-md bg-neutral-700 text-white shadow-sm hover:cursor-pointer p-2">
+                <option>all</option>
+                <option>not updated</option>
+                <option>only updated</option>
+                <option>downloaded</option>
+                <option>not downloaded</option>
+              </select>
+            </div>
+            <div class="flex flex-row">
+              <div class="flex">
+                <input type="number" value="20" class="block px-3 py-1.5 font-normal bg-neutral-700 text-white bg-clip-padding rounded m-0" />
+              </div>
+              <div class="flex">
+                per page
               </div>
             </div>
           </div>
-          <Show
-            when={more()}
-            fallback={
-              <div>
-                <div ref={queryField} value={null} />
-                <div ref={state} value={null} />
-                <div ref={limit} value={null} />
+          <div class="flex flex-row bg-neutral-600 justify-around py-3">
+            <div class="flex flex-col">
+              <div
+                class="rounded-md p-3 flex bg-neutral-700 text-white shadow-sm hover:cursor-pointer"
+                onClick={handleDownloadAll}
+              >
+                Download All
               </div>
-            }
-          >
-            <div class="field pl-2 is-grouped is-grouped-multiline">
-              <div class="control">
-                <span class="select">
-                  <select ref={queryField}>
-                    <option value="all">Search by</option>
-                    <option>title</option>
-                    <option>artist</option>
-                    <option>genre</option>
-                    <option>date</option>
-                  </select>
-                </span>
-              </div>
-              <div class="control">
-                <span class="select">
-                  <select ref={state}>
-                    <option>all</option>
-                    <option>not updated</option>
-                    <option>only updated</option>
-                    <option>downloaded</option>
-                    <option>not downloaded</option>
-                  </select>
-                </span>
-              </div>
-              <div class="control">
-                <input type="number" value="20" class="input" />
-              </div>
-              <div class="control">
-                <div
-                  class="button is-info is-outlined"
-                  onClick={handleDownloadAll}
-                >
-                  Download All
-                </div>
-                <div class="help">creates zip file</div>
-              </div>
-              <div class="control">
-                <div
-                  class="button is-primary is-outlined"
-                  onClick={handleDownloadRemaining}
-                >
-                  Download Remaining
-                </div>
-                <div class="help">creates zip file</div>
-              </div>
-              <div class="control">
-                <div
-                  class="button is-danger is-outlined"
-                  onClick={handleUpdateMetadata}
-                >
-                  Update All Metadata
-                </div>
-                <div class="help">runs background job</div>
-              </div>
-              <div class="control">
-                <div
-                  class="button is-danger is-outlined"
-                  onClick={handleRedownload}
-                >
-                  ReDownload on Server
-                </div>
-                <div class="help">runs background job</div>
-              </div>
+              <div class="text-sm text-white flex">creates zip file</div>
             </div>
-          </Show>
-        </div>
+            <div class="flex flex-col">
+              <div
+                class="rounded-md p-3 flex bg-neutral-700 text-white shadow-sm hover:cursor-pointer"
+                onClick={handleDownloadRemaining}
+              >
+                Download Remaining
+              </div>
+              <div class="text-sm text-white flex">creates zip file</div>
+            </div>
+            <div class="flex flex-col">
+              <div
+                class="rounded-md flex p-3 bg-neutral-700 text-white shadow-sm hover:cursor-pointer"
+                onClick={handleUpdateMetadata}
+              >
+                Update All Metadata
+              </div>
+              <div class="text-sm flex text-white">runs background job</div>
+            </div>
+            <div class="flex flex-col">
+              <div
+                class="rounded-md flex p-3 bg-neutral-700 text-white shadow-sm hover:cursor-pointer"
+                onClick={handleRedownload}
+              >
+                ReDownload on Server
+              </div>
+              <div class="text-sm text-white flex">runs background job</div>
+            </div>
+          </div>
+          <button class="bg-neutral-600 border-neutral-800 border-y hover:bg-sky-400" onClick={toggleMoreOptions}>Less Options </button>
+        </Show>
+        <input
+          class="flex p-3 bg-neutral-600 rounded-b-lg text-white hover:cursor-pointer hover:bg-sky-400"
+          type="submit"
+          value="Search"
+        />
       </form>
       <Show when={displaySongs()} fallback={<div id="observed5" />}>
         <For each={songs()}>
