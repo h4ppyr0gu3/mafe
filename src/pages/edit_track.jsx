@@ -30,27 +30,14 @@ export default function EditTrack() {
   onMount(() => {
     getSingleTrack(params.id).then((res) => {
       song = res;
-    // song = {
-    //   videoId: "Pt8WHe2KQ4U",
-    //   title: "test song title",
-    //   genre: "test song genre",
-    //   year: "test",
-    //   artist: "test; multiple artists; also supported",
-    //   album: "test",
-    //   seconds: "test",
-    // }
-    title.value = song.title;
-    genre.value = song.genre;
-    year.value = song.year;
-    artists.value = song.artist;
-    album.value = song.album;
-    imageUrl = "https://img.youtube.com/vi/" + song.video_id + "/mqdefault.jpg";
-    image.src = imageUrl;
-    imageInput.value = imageUrl;
-    // console.log(artists.value);
-    // console.log(artists);
-    // console.log("https://img.youtube.com/vi/" + song.videoId + "/mqdefault.jpg")
-
+      title.value = song.title;
+      genre.value = song.genre;
+      year.value = song.year;
+      artists.value = song.artist;
+      album.value = song.album;
+      imageUrl = "https://img.youtube.com/vi/" + song.video_id + "/mqdefault.jpg";
+      image.src = imageUrl;
+      imageInput.value = imageUrl;
     })
   });
 
@@ -65,9 +52,7 @@ export default function EditTrack() {
       album: album.value,
       image_url: imageInput.value,
     }
-    console.log("submitted");
     updateTrack(updatedAttributes, song.id).then(() => {
-      console.log("updated");
       navigate("/my_tracks", { replace: true });
     });
   //   params = {
@@ -100,7 +85,6 @@ export default function EditTrack() {
   // }
 
   // async function handleAutoFillSubmit(event) {
-  //   console.log("auto submitted");
   // }
 
   // function updateFromSongParams() {

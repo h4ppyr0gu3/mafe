@@ -3,6 +3,7 @@ import { MBResults } from "../components/music_brainz_results";
 import { createSignal } from "solid-js";
 import { A } from "@solidjs/router";
 import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function YTSearch() {
   const [signal, setSignal] = createSignal();
@@ -34,6 +35,7 @@ export default function YTSearch() {
       </div>
       <YTSearchBar onChange={setSignal()} />
       <MBResults results={signal()} />
+      <Footer />
     </>
   );
 }

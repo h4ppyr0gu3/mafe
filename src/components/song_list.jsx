@@ -9,7 +9,6 @@ export default function songList() {
   const [display, setDisplay] = createSignal(false);
 
   createEffect(() => {
-    console.log(historyState.artistSelect);
     setDisplay(historyState.albumSongs != null && historyState.artistSelect != null)
   });
 

@@ -16,9 +16,6 @@ export async function getInvidious(path, params) {
     .then((res) => {
       setResultState("success", true);
       setResultState("data", res.data);
-      console.log(res.data);
-      console.log(resultState.data);
-      console.log("line 20");
     })
     .catch((res) => {
       displayErrors(res, "Failed to get invidious data");

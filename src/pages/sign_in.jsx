@@ -17,7 +17,6 @@ export default function SignIn() {
     e.preventDefault();
     toggleDisableButton();
     await userLogin(email.value, password.value).then((logIn) => {
-      console.log(logIn);
       if (!logIn.success) {
         toggleDisableButton();
       }

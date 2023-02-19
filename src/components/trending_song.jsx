@@ -30,7 +30,6 @@ export default function TrendingSong(props) {
   function instantDownload(event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log("Instant Download");
   }
 
   return (

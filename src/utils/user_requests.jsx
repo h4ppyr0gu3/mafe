@@ -81,8 +81,6 @@ export async function addToUserTracks(params) {
   const [appState, setAppState] = useAppState();
   let headers, body;
   let response = { errors: null, success: null, data: null };
-  console.log(appState.auth);
-  console.log(params);
 
   return axios
     .post(url, params, {

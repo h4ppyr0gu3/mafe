@@ -88,16 +88,12 @@ export default function TrackSearchBar() {
   }
 
   function handleDownloadAll() {
-    console.log("download all");
   }
   function handleRedownload() {
-    console.log("re download");
   }
   function handleUpdateMetadata() {
-    console.log("update metadata");
   }
   function handleDownloadRemaining() {
-    console.log("remaining");
   }
 
   function toggleMoreOptions() {

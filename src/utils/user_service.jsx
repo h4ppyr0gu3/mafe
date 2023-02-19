@@ -7,7 +7,6 @@ export const userService = () => {
   onMount(() => {
     const userString = localStorage.getItem("user");
     if (!userString) return;
-    console.log("onMount");
     setUser(() => JSON.parse(userString));
   });
 

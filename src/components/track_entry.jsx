@@ -37,13 +37,11 @@ export default function TrackEntry(props) {
     event.preventDefault();
     let url = window.backend_server + "/api/v1/tracks/" + song.id;
     removeTrack(url);
-    console.log("removed");
   }
 
   onMount(() => {
     // read the url bar and render edit modal if needed
     path = window.location.pathname;
-    console.log(path);
     if (path.split("/").includes("edit") && song.id == path.split("/").pop()) {
       toggleEdit();
     }

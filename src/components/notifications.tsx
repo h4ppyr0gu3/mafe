@@ -12,9 +12,8 @@ export default function Notifications() {
   const [notifications, setNotifications] = useNotifications();
 
   async function fetchNotifications() {
-    console.log("notifications");
+    const variable = 0;
     // getNotifications().then(() => {
-    //   console.log(notifications);
     //   timeout = setTimeout(() => {
     //     fetchNotifications();
     //   }, 60000);
@@ -45,7 +44,7 @@ export default function Notifications() {
   }
 
   function handleMarkAsRead() {
-    console.log("all notifications will be read");
+    const variable = 0;
   }
 
   return (

@@ -21,14 +21,12 @@ export default function AlbumEntry(props) {
           manufacturedArtist.name += " & " + el.name;
         }
       });
-      console.log(manufacturedArtist);
       setHistoryState("artistSelect", manufacturedArtist);
     }
     setSearchParams({ selected: album.id, artist: historyState.artistSelect.name });
     let params = { release: album.id };
     let path = "/recording";
     await getMusicBrainz(path, params).then(() => {
-      // console.log(resultState.data);
       setHistoryState("albumSongs", resultState.data.data.recordings);
       setHistoryState("albumSelect", album);
     });
