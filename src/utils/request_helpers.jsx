@@ -8,8 +8,8 @@ export function displayErrors(response, defaultText) {
 function recursiveErrorLookup(obj) {
   if (obj === null) return;
   Object.keys(obj).forEach((key) => {
-    if (key === "errors" && typeof(obj[key]) == "array" && typeof(obj[key][0]) === "string") {
-        createNotifications(error, "error");
+    if (key === "errors" && typeof(obj[key][0]) === "string") {
+        createNotifications(obj[key], "error");
     } else if (typeof(obj[key]) == "object") {
       recursiveErrorLookup(obj[key]);
     }
