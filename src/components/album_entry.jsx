@@ -2,12 +2,14 @@ import { getMusicBrainz } from "../utils/musicbrainz_requests";
 import { useHistoryState } from "../utils/album_search_service";
 import { useResultState } from "../utils/search_service";
 import { onMount, For } from "solid-js";
+import { useSearchParams } from "@solidjs/router";
 
 export default function AlbumEntry(props) {
   let album = props.album;
 
   const [resultState, setResultState] = useResultState();
   const [historyState, setHistoryState] = useHistoryState();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   async function handleClick() {
     if (historyState.albumSearch != null) {
@@ -22,6 +24,7 @@ export default function AlbumEntry(props) {
       console.log(manufacturedArtist);
       setHistoryState("artistSelect", manufacturedArtist);
     }
+    setSearchParams({ selected: album.id, artist: historyState.artistSelect.name });
     let params = { release: album.id };
     let path = "/recording";
     await getMusicBrainz(path, params).then(() => {

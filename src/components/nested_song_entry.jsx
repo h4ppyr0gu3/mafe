@@ -1,4 +1,5 @@
 import { addTrackToLibrary } from "../utils/user_song_requests";
+import { useHistoryState } from "../utils/album_search_service";
 
 export default function NestedSongEntry(props) {
   let song = props.song;
@@ -7,13 +8,16 @@ export default function NestedSongEntry(props) {
   var minutes = Math.floor(song.lengthSeconds / 60);
   var seconds = song.lengthSeconds - minutes * 60;
   var correctedSeconds = seconds < 10 ? "0" + seconds : seconds;
+  const [historyState, setHistoryState] = useHistoryState();
 
   function handleClick(e) {
     e.preventDefault;
     var params = {
       video_id: song.videoId,
       title: song.title,
-      artist: song.author,
+      artist: historyState.artistSelect.name,
+      album: historyState.albumSelect.title,
+      year: historyState.albumSelect.date.substring(0, 4),
       seconds: song.lengthSeconds,
     };
     addTrackToLibrary(params);

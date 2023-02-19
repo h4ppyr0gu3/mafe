@@ -3,6 +3,7 @@ import { useResultState } from "../utils/search_service.jsx";
 import axios from "axios";
 import { useNavigate } from "@solidjs/router";
 import { createNotification, createNotifications } from "../utils/notifications";
+import { displayErrors } from "../utils/request_helpers";
 
 export async function userLogin(email, password) {
   const url = window.backend_server + "/api/auth/sign_in";
@@ -21,8 +22,7 @@ export async function userLogin(email, password) {
       return response;
     })
     .catch((res) => {
-      createNotification("failed to log in", "failure");
-      return response;
+      displayErrors(res, "Failed to log in");
     });
 }
 
@@ -45,11 +45,7 @@ export async function userLogOut() {
       return response;
     })
     .catch((res) => {
-      setAuth("");
-      response.success = false;
-      createNotification("You have successfully logged out", "success");
-      response.errors = res.response.data.errors;
-      return response;
+      displayErrors(res, "Failed to log out");
     });
 }
 
@@ -76,12 +72,7 @@ export async function userSignUp(email, password) {
       return response;
     })
     .catch((res) => {
-      console.log("fail");
-      console.log(res);
-      createNotifications([res.response.data.errors.full_messages], "error");
-      response.success = false;
-      response.errors = res.response.data.errors;
-      return response;
+      displayErrors(res, "Failed to sign up");
     });
 }
 
@@ -97,7 +88,7 @@ export async function addToUserTracks(params) {
     .post(url, params, {
       headers: {
         Authorization: appState.auth,
-        uid: "test1@test.com",
+        // uid: "test1@test.com",
       },
     })
     .then((res) => {
@@ -108,8 +99,6 @@ export async function addToUserTracks(params) {
       return response;
     })
     .catch((res) => {
-      response.success = false;
-      response.errors = res.response.data.errors;
-      return response;
+      displayErrors(res, "Failed to add track");
     });
 }

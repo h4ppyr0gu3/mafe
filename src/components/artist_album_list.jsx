@@ -17,7 +17,9 @@ export default function ArtistAlbumList() {
       return;
     }
     setDisplay(
-      historyState.albumResult != null && historyState.albumSelect == null
+      historyState.albumResult != null && 
+        historyState.albumSelect == null && 
+        historyState.albumSongs == null
     );
     if (!display()) {
       return;

@@ -2,17 +2,28 @@ import { InputField, InputButton } from "./input_field";
 import { useHistoryState } from "../utils/album_search_service";
 import { useResultState } from "../utils/search_service";
 import { getMusicBrainz } from "../utils/musicbrainz_requests";
+import { useSearchParams } from  "@solidjs/router";
+import { onMount } from "solid-js";
 
-export default function AlbumNames() {
-  let albumQuery, searchAlbum, params;
+export default function AlbumNames(props) {
+  let albumQuery, searchAlbum, params, query;
+  query = props.query;
 
   const [historyState, setHistoryState] = useHistoryState();
   const [resultState, setResultState] = useResultState();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  onMount(() => {
+    if ( query !== undefined ) {
+      albumQuery.value = query;
+      handleSubmit({preventDefault: () => {}});
+    }
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Album Search");
     toggleDisableButton();
+    setSearchParams({query: albumQuery.value});
     let params = {
       query: albumQuery.value,
     };

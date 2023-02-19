@@ -21,8 +21,8 @@ export default function TrackEntry(props) {
 
   const [showVideo, setShowVideo] = createSignal(false);
 
-  var minutes = Math.floor(song.lengthSeconds / 60);
-  var seconds = song.lengthSeconds - minutes * 60;
+  var minutes = Math.floor(song.seconds / 60);
+  var seconds = song.seconds - minutes * 60;
   var correctedSeconds = seconds < 10 ? "0" + seconds : seconds;
 
   function handleDownload() {

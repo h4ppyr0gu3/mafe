@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useResultState } from "../utils/search_service.jsx";
+import { displayErrors } from "../utils/request_helpers.jsx";
 
 export async function getInvidious(path, params) {
   const url = import.meta.env.VITE_INVIDIOUS_API_URL + path;
@@ -20,7 +21,6 @@ export async function getInvidious(path, params) {
       console.log("line 20");
     })
     .catch((res) => {
-      setResultState("success", false);
-      setResultState("errors", res);
+      displayErrors(res, "Failed to get invidious data");
     });
 }

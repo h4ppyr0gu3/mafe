@@ -58,6 +58,9 @@ export default function SongEntry(props) {
       video_id: videoId,
       title: song.title,
       artist: historyState.artistSelect.name,
+      album: historyState.albumSelect.title,
+      year: historyState.albumSelect.date.substring(0, 4),
+      // genre: historyState.genreSelect.name,
       seconds: lengthSeconds,
     };
     addTrackToLibrary(params);

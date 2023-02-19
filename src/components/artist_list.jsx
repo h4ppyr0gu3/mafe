@@ -4,16 +4,6 @@ import { getMusicBrainz } from "../utils/musicbrainz_requests";
 import { For, Show } from "solid-js";
 import ArtistEntry from "./artist_entry";
 
-// import
-// {
-//   artistSearch: null,
-//   artistResult: null,
-//   artistSelect: null,
-//   albumResult: null,
-//   albumSelect: null,
-// }
-//
-
 export default function ArtistList() {
   const [historyState, setHistoryState] = useHistoryState();
 
@@ -21,7 +11,9 @@ export default function ArtistList() {
     <>
       <Show
         when={
-          historyState.artistResult != null && historyState.albumResult == null
+          historyState.artistResult != null &&
+            historyState.albumResult == null &&
+            historyState.albumSongs == null
         }
         fallback={<div />}
       >

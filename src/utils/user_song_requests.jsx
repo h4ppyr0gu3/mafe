@@ -3,6 +3,7 @@ import { useResultState } from "../utils/search_service.jsx";
 import { useAppState, setAuth } from "./app_state_service";
 import { useNavigate } from "@solidjs/router";
 import { createNotification, createNotifications } from "../utils/notifications";
+import { displayErrors } from "../utils/request_helpers";
 
 export async function addTrackToLibrary(params) {
   const url = window.backend_server + "/api/v1/tracks";
@@ -27,8 +28,7 @@ export async function addTrackToLibrary(params) {
       }
     })
     .catch((res) => {
-      createNotifications(res.response.data.errors, "failure");
-      setAuth(res.headers.authorization);
+      displayErrors(res, "Failed to add track to library");
     });
 }
 
@@ -48,8 +48,7 @@ export function getUsersTracks(params) {
       setAuth(res.headers.authorization);
     })
     .catch((res) => {
-      console.log(res);
-      createNotifications(res.errors, "failure");
+      displayErrors(res, "Failed to get tracks");
     });
 }
 
@@ -68,9 +67,7 @@ export async function getSingleTrack(id) {
       return res.data;
     })
     .catch((res) => {
-      console.log(res.response.data.errors);
-      createNotifications(res.response.data.errors, "failure");
-      setAuth(res.headers.authorization);
+      displayErrors(res, "Failed to get track");
     });
 }
 
@@ -100,8 +97,7 @@ export function updateTrack(params, id) {
       }
     })
     .catch((res) => {
-      createNotifications(res.response.data.errors, "error");
-      createNotification("Something went wrong, please refresh and try again", "failure");
+      displayErrors(res, "Failed to update track");
     });
 }
 
@@ -124,8 +120,7 @@ export async function downloadTrack(url) {
       }
     })
     .catch((res) => {
-      console.log(res)
-      createNotification("Something went wrong, please refresh and try again", "failure");
+      displayErrors(res, "Failed to download track");
     });
 }
 
@@ -139,7 +134,6 @@ export async function removeTrack(url) {
       createNotification("Successfully removed track", "success");
     })
     .catch((res) => {
-      console.log(res)
-      createNotification("Something went wrong, please refresh and try again", "failure");
+      displayErrors(res, "Failed to remove track");
     });
 }

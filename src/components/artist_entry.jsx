@@ -1,19 +1,21 @@
 import { getMusicBrainz } from "../utils/musicbrainz_requests";
 import { useHistoryState } from "../utils/album_search_service";
 import { useResultState } from "../utils/search_service";
+import { useSearchParams } from "@solidjs/router";
 
 export default function ArtistEntry(props) {
   let artist = props.artist;
 
   const [resultState, setResultState] = useResultState();
   const [historyState, setHistoryState] = useHistoryState();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   async function handleClick() {
-    console.log("handle click");
     let params = {
       artist: artist.id,
     };
     let path = "/release";
+    // setSearchParams({ selected: artist.id });
     await getMusicBrainz(path, params).then(() => {
       setHistoryState("albumResult", resultState.data.data.releases);
       setHistoryState("artistSelect", artist);

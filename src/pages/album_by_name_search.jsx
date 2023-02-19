@@ -5,15 +5,30 @@ import SongList from "../components/song_list";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import { A } from "@solidjs/router";
+import { useSearchParams } from  "@solidjs/router";
+import { onMount } from "solid-js";
+import { useHistoryState } from "../utils/album_search_service";
+import { getMusicBrainz } from "../utils/musicbrainz_requests";
 
-// {
-//   artistSearch: null,
-//   artistResult: null,
-//   artistSelect: null,
-//   albumResult: null,
-//   albumSelect: null,
-// }
 export default function AlbumByNameSearch() {
+  let query, selected, artist;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [historyState, setHistoryState] = useHistoryState();
+
+  onMount(() => {
+    query = searchParams.query;
+    selected = searchParams.selected;
+    artist = searchParams.artist;
+    setHistoryState("albumSearch", query);
+    if (selected == null) {
+      return;
+    }
+    let params = { release: selected };
+    getMusicBrainz("/recording", params).then((res) => {
+      setHistoryState("albumSongs", res.data.recordings);
+      setHistoryState("artistSelect", {name: artist})
+    });
+  });
   return (
     <>
       <Header />
@@ -41,7 +56,7 @@ export default function AlbumByNameSearch() {
         </div>
       </div>
 
-    <AlbumNames />
+    <AlbumNames query={query}/>
     <ArtistAlbumList />
     <SongList />
 </>
